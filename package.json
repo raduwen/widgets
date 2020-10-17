@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "parcel index.html",
-    "build": "parcel build index.html --public-url /widgets"
+    "build": "parcel build index.html --public-url /",
+    "docker:build": "docker build . -t raduwen/widgets"
   },
   "devDependencies": {
     "parcel-bundler": "^1.12.4"
