@@ -42,7 +42,6 @@ class TimeWidget {
       ${now.getFullYear()}/${this.zero_fill(now.getMonth() + 1)}/${this.zero_fill(now.getDate())}(${this.day2str(now.getDay())})<br>
       ${this.zero_fill(now.getHours())}:${this.zero_fill(now.getMinutes())}:${this.zero_fill(now.getSeconds())}
     `
-    console.log(tmp)
     this.el.innerHTML = tmp
   }
 }
