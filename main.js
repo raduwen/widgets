@@ -1,4 +1,3 @@
-import StampCastWidget from './widgets/stampcast'
 import TimeWidget from './widgets/time'
 
 class Widgets {
@@ -21,9 +20,7 @@ class Widgets {
   document.body.append(widgets.el)
 
   const time = new TimeWidget()
-  const stampcast = new StampCastWidget()
   widgets.add(time)
-  widgets.add(stampcast)
 
   setInterval(() => { time.update() }, 1000)
 })()
