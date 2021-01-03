@@ -1,30 +1,9 @@
-import TimeWidget from './widgets/time'
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-class Widgets {
-  constructor() {
-    this.el = document.createElement('div')
-    this.el.id = 'widgets'
-    this.widgets = []
-  }
+import App from './containers/App'
 
-  add(widget) {
-    this.widgets.push(widget)
-
-    widget.el.classList.add('widget')
-    this.el.append(widget.el)
-  }
-}
-
-(() => {
-  const widgets = new Widgets()
-  document.body.append(widgets.el)
-
-  const time = new TimeWidget()
-  widgets.add(time)
-
-  setInterval(() => { time.update() }, 1000)
-})()
-
-window.widget_debug = function () {
-  document.getElementById('widgets').classList.toggle('debug')
-}
+ReactDOM.render(
+  <App />,
+  document.getElementById('app')
+)
