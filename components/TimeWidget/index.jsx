@@ -9,7 +9,7 @@ class TimeWidget extends React.Component {
   }
 
   render() {
-    const { size, time } = this.props
+    const { size } = this.props
 
     const style = {
       display: 'flex',
@@ -60,7 +60,7 @@ class TimeWidget extends React.Component {
   }
 
   tick() {
-    this.setState({ now: new Date() })
+    this.setState({ time: new Date() })
   }
 
   componentDidMount() {
