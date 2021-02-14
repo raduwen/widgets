@@ -3,6 +3,9 @@ import React from 'react'
 class TimeWidget extends React.Component {
   constructor(props) {
     super(props)
+    this.state = {
+      time: new Date()
+    };
   }
 
   render() {
@@ -28,7 +31,7 @@ class TimeWidget extends React.Component {
 
     return (
       <div style={style}>
-        {this.formattedTime(time)}
+        {this.formattedTime(this.state.time)}
       </div>
     )
   }
@@ -54,6 +57,18 @@ class TimeWidget extends React.Component {
       '金',
       '土'
     ][n]
+  }
+
+  tick() {
+    this.setState({ now: new Date() })
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(this.tick.bind(this), 500)
+  }
+
+  componentWillUnmpount() {
+    clearInterval(this.interval)
   }
 }
 

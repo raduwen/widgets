@@ -1,10 +1,13 @@
+import { useState } from 'react';
 import Head from 'next/head';
 
-import App from '../containers/App'
+import TimeWidget from '../components/TimeWidget'
 
 const IndexPage = () => {
   return (
-    <App />
+    <div>
+      <TimeWidget size={30} />
+    </div>
   );
 };
 
