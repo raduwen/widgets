@@ -4,14 +4,12 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "parcel index.html",
-    "build": "parcel build index.html --public-url /",
-    "docker:build": "docker build . -t raduwen/widgets"
-  },
-  "devDependencies": {
-    "parcel-bundler": "^1.12.4"
+    "dev": "next dev",
+    "buidl": "next build",
+    "start": "next start"
   },
   "dependencies": {
+    "next": "^10.0.6",
     "react": "17.0.1",
     "react-dom": "^17.0.1"
   }
