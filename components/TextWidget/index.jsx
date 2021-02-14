@@ -13,6 +13,7 @@ const TextWidget = ({ text }) => {
   ].join(', ');
 
   const style = {
+    boxSizing: 'border-box',
     position: 'absolute',
     right: 0,
     width: '320px',
