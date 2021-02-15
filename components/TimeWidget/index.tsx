@@ -1,7 +1,17 @@
-import React from 'react'
+import React, { CSSProperties } from 'react'
 
-class TimeWidget extends React.Component {
-  constructor(props) {
+interface TimeWidgetProps {
+  size: number;
+};
+
+interface TimeWidgetState {
+  time: Date;
+};
+
+class TimeWidget extends React.Component<TimeWidgetProps, TimeWidgetState> {
+  interval: NodeJS.Timer | null;
+
+  constructor(props: TimeWidgetProps) {
     super(props)
     this.state = {
       time: new Date()
@@ -11,7 +21,7 @@ class TimeWidget extends React.Component {
   render() {
     const { size } = this.props
 
-    const style = {
+    const style: CSSProperties = {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',

@@ -1,3 +1,5 @@
+import { CSSProperties } from 'react';
+
 const TextWidget = ({ text }) => {
   const edge_color = 'black';
   const ew = 1;
@@ -12,7 +14,7 @@ const TextWidget = ({ text }) => {
     `${ew}px 0 0 ${edge_color}`
   ].join(', ');
 
-  const style = {
+  const style: CSSProperties = {
     boxSizing: 'border-box',
     position: 'absolute',
     right: 0,
