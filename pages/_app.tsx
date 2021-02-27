@@ -1,5 +1,10 @@
 import '@/styles/global.css';
+import { initFirebase } from '@/lib/firebase';
 
-export default function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }) {
+  initFirebase();
+
   return <Component {...pageProps} />
 }
+
+export default MyApp;

@@ -78,7 +78,7 @@ const TextWidget: VFC<TextWidgetProps> = ({
     style.right = 0;
   }
 
-  console.log(style);
+  // console.log(style);
 
   return <div style={style}>{text}</div>;
 };

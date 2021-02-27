@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+import firebase from 'firebase';
 import { TextWidget } from '@/components/TextWidget';
 import { TimeWidget } from '@/components/TimeWidget';
 
@@ -6,13 +8,25 @@ const Widgets = {
   'time': TimeWidget,
 };
 
-const IndexPage = () => {
-  const text = `オレオレOBSウィジュエットの整理`;
+// function createWidget(db, name: string, props: any) {
+//   db.ref('widgets').push({
+//     name,
+//     props,
+//   });
+// }
 
-  const widgets = [
-    { name: 'text', props: { text: text } },
-    { name: 'time', props: { size: 30 } },
-  ];
+const IndexPage = () => {
+  const db = firebase.database();
+  const [widgets, setWidgets] = useState([]);
+
+  useEffect(async () => {
+    const dss = await db.ref('widgets').get();
+    const ws = [];
+    dss.forEach((ss) => {
+      ws.push(ss.val());
+    });
+    setWidgets(ws);
+  }, [widgets]);
 
   return (
     <div>
