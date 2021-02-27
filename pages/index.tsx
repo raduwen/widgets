@@ -8,13 +8,6 @@ const Widgets = {
   'time': TimeWidget,
 };
 
-// function createWidget(db, name: string, props: any) {
-//   db.ref('widgets').push({
-//     name,
-//     props,
-//   });
-// }
-
 const IndexPage = () => {
   const db = firebase.database();
   const [widgets, setWidgets] = useState([]);
@@ -27,13 +20,14 @@ const IndexPage = () => {
       });
       setWidgets(ws);
     });
-  }, [widgets]);
+    console.log("==> Widgets initialized");
+  }, []);
 
   return (
     <div>
-      {widgets.map((widget) => {
+      {widgets.map((widget, i) => {
         const Widget = Widgets[widget.name];
-        return <Widget {...widget.props} />
+        return <Widget key={i} {...widget.props} />
       })}
     </div>
   );
