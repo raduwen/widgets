@@ -82,4 +82,4 @@ class TimeWidget extends React.Component<TimeWidgetProps, TimeWidgetState> {
   }
 }
 
-export default TimeWidget
+export { TimeWidget }

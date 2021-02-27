@@ -83,4 +83,4 @@ const TextWidget: VFC<TextWidgetProps> = ({
   return <div style={style}>{text}</div>;
 };
 
-export default TextWidget
+export { TextWidget }
