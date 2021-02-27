@@ -19,13 +19,14 @@ const IndexPage = () => {
   const db = firebase.database();
   const [widgets, setWidgets] = useState([]);
 
-  useEffect(async () => {
-    const dss = await db.ref('widgets').get();
-    const ws = [];
-    dss.forEach((ss) => {
-      ws.push(ss.val());
+  useEffect(() => {
+    db.ref('widgets').get().then((dss) => {
+      const ws = [];
+      dss.forEach((ss) => {
+        ws.push(ss.val());
+      });
+      setWidgets(ws);
     });
-    setWidgets(ws);
   }, [widgets]);
 
   return (
