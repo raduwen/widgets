@@ -19,15 +19,27 @@ type TextWidgetProps = {
   position?: Position;
 };
 
+const calcTextShadow = (weight, color) => {
+  const edge = [
+    `${weight}px ${weight}px 0 ${color}`,
+    `-${weight}px -${weight}px 0 ${color}`,
+    `-${weight}px ${weight}px 0 ${color}`,
+    `${weight}px -${weight}px 0 ${color}`,
+    `0px ${weight}px 0 ${color}`,
+    `0-${weight}px 0 ${color}`,
+    `-${weight}px 0 0 ${color}`,
+    `${weight}px 0 0 ${color}`
+  ].join(', ');
+  return edge;
+};
 
 const defaultStyle: CSSProperties = {
   boxSizing: 'border-box',
   whiteSpace: 'pre-wrap',
   overflow: 'hidden',
-  textColor: 'white',
+  color: 'white',
   backgroundColor: 'rgba(0, 0, 0 0.1)',
-  edgeWeight: 1,
-  edgeColor: 'black',
+  textShadow: calcTextShadow(1, 'black'),
   width: 320,
   height: 540,
   padding: '4px 8px',
@@ -45,19 +57,7 @@ const TextWidget: VFC<TextWidgetProps> = ({
   padding,
   position,
 }) => {
-  const ew = edgeWeight || 1;
-  const edge_color = edgeColor || 'black';
-
-  const edge = [
-    `${ew}px ${ew}px 0 ${edge_color}`,
-    `-${ew}px -${ew}px 0 ${edge_color}`,
-    `-${ew}px ${ew}px 0 ${edge_color}`,
-    `${ew}px -${ew}px 0 ${edge_color}`,
-    `0px ${ew}px 0 ${edge_color}`,
-    `0-${ew}px 0 ${edge_color}`,
-    `-${ew}px 0 0 ${edge_color}`,
-    `${ew}px 0 0 ${edge_color}`
-  ].join(', ');
+  const edge = calcTextShadow(edgeWeight || 1, edgeColor || 'black');
 
   const style: CSSProperties = {
     ...defaultStyle,
