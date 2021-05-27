@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   align-items: center;
   margin: 0;
   height: 100vh;
-  background-color: #ddd;
+  background-color: #444;
 `;
 
 const Container = styled.div`
@@ -22,8 +22,8 @@ const Container = styled.div`
   margin: 4rem auto;
   padding: 2rem;
 
-  width: 720px;
-  max-width: 720px;
+  width: 640px;
+  max-width: 640px;
   height: 320px;
 
   background-color: #fff;
@@ -51,7 +51,7 @@ const AdminSigninIndexPage: VFC = () => {
   return (
     <Wrapper>
       <Container>
-        <H1>Sign In Admin</H1>
+        <H1>Sign In</H1>
         <SignInForm redirectTo="/admin" />
       </Container>
     </Wrapper>
