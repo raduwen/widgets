@@ -1,7 +1,6 @@
-import { User } from 'firebase';
+import { User } from '@firebase/auth-types';
 import { FC, ReactNode, createContext, useEffect, useState } from 'react';
 import { auth } from '@/lib/firebase';
-
 type AuthContextProps = {
   currentUser: User | null | undefined;
 };

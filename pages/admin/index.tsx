@@ -1,6 +1,6 @@
 import { VFC, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { User } from 'firebase';
+import { User } from '@firebase/auth-types';
 
 import { AuthProvider } from '@/lib/AuthPropvider';
 import { auth } from '@/lib/firebase';
