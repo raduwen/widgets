@@ -1,6 +1,36 @@
 import React, { VFC, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import styled from 'styled-components';
 import { auth } from '@/lib/firebase';
+
+const Button = styled.button`
+  padding: 0.5rem 1rem;
+  color: #fff;
+  background-color: #33bbff;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  &:hover {
+    background-color: #1188dd;
+  }
+`;
+
+const FormGroup = styled.div`
+  display: flex;
+  margin-bottom: 1rem;
+  width: 480px;
+
+  & > label {
+    width: 20%;
+  }
+  & > input {
+    flex-grow: 1;
+  }
+`;
+
+const Input = styled.input`
+  outline: 1px solid #eee;
+  padding: 0.25rem 0.5rem;
+`;
 
 type SignInFormProps = {
   redirectTo: string;
@@ -23,25 +53,25 @@ const SignInForm: VFC<SignInFormProps> = ({ redirectTo }) => {
 
   return (
     <form onSubmit={signin}>
-      <div>
+      <FormGroup>
         <label>Email</label>
-        <input
+        <Input
           type="email"
           placeholder="example@example.com"
           onChange={(e) => setEmail(e.target.value)}
         />
-      </div>
-      <div>
+      </FormGroup>
+      <FormGroup>
         <label>Password</label>
-        <input
+        <Input
           type="password"
           onChange={(e) => setPassword(e.target.value)}
         />
-      </div>
+      </FormGroup>
       <div>
-        <button type="submit">
+        <Button type="submit">
           Sign In
-        </button>
+        </Button>
       </div>
     </form>
   );
