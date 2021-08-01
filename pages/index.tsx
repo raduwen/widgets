@@ -7,7 +7,7 @@ const Widgets = {
 };
 
 const IndexPage = () => {
-  const text = `オレオレOBSウィジュエットの整理`;
+  const text = `オレオレOBSウィジェットの整理`;
 
   const widgets = [
     { name: 'text', props: { text: text } },
