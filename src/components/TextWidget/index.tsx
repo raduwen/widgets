@@ -1,4 +1,4 @@
-import { VFC, CSSProperties } from 'react';
+import React, { VFC, CSSProperties } from 'react';
 
 type Position = {
   top?: number;    // px
