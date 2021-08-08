@@ -1,4 +1,5 @@
 import 'firebase/auth';
+import 'firebase/database';
 import firebase from 'firebase/app';
 
 const config = {
@@ -12,16 +13,12 @@ const config = {
 };
 
 let auth;
+let db;
 if (firebase.apps.length === 0) {
   firebase.initializeApp(config);
   auth = firebase.app().auth();
-  if (import.meta.env.VITE_FIREBASE_AUTH_EMULATOR_HOST) {
-    auth.useEmulator(
-      `http://${import.meta.env.VITE_FIREBASE_AUTH_EMULATOR_HOST}`
-    );
-  }
+  db = firebase.database();
 }
 
-// TODO: use database emulator
-
-export { auth };
+export default firebase;
+export { auth, db };

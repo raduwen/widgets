@@ -9,10 +9,11 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "serve": "vite preview",
-    "firebase:emulator:start": "firebase emulators:start"
+    "serve": "vite preview"
   },
   "dependencies": {
+    "@material-ui/core": "^4.12.3",
+    "@react-firebase/database": "^0.3.11",
     "firebase": "^8.6.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
