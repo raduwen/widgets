@@ -1,17 +1,7 @@
 import React, { VFC, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { TextField, Button } from '@material-ui/core';
 import { auth } from '@/lib/firebase';
-
-const Button = styled.button`
-  padding: 0.5rem 1rem;
-  color: #fff;
-  background-color: #33bbff;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  &:hover {
-    background-color: #1188dd;
-  }
-`;
 
 const FormGroup = styled.div`
   display: flex;
@@ -23,11 +13,6 @@ const FormGroup = styled.div`
   & > input {
     flex-grow: 1;
   }
-`;
-
-const Input = styled.input`
-  outline: 1px solid #eee;
-  padding: 0.25rem 0.5rem;
 `;
 
 type SignInFormProps = {
@@ -50,22 +35,24 @@ const SignInForm: VFC<SignInFormProps> = ({ redirectTo }) => {
   return (
     <form onSubmit={signin}>
       <FormGroup>
-        <label>Email</label>
-        <Input
+        <TextField
           type="email"
+          label="Email"
           placeholder="example@example.com"
+          fullWidth
           onChange={(e) => setEmail(e.target.value)}
         />
       </FormGroup>
       <FormGroup>
-        <label>Password</label>
-        <Input
+        <TextField
           type="password"
+          label="Password"
+          fullWidth
           onChange={(e) => setPassword(e.target.value)}
         />
       </FormGroup>
       <div>
-        <Button type="submit">
+        <Button variant="contained" color="primary" type="submit">
           Sign In
         </Button>
       </div>

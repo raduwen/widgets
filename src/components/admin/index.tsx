@@ -1,4 +1,14 @@
 import React, { VFC, useEffect, useState } from 'react';
+import {
+  makeStyles,
+  CssBaseline,
+  Container,
+  Box,
+  AppBar,
+  Toolbar,
+  Typography,
+  Button
+} from '@material-ui/core';
 import { User } from '@firebase/auth-types';
 import { FirebaseDatabaseNode } from '@react-firebase/database';
 import { AuthProvider } from '@/lib/AuthProvider';
@@ -9,6 +19,15 @@ import { TextWidgetEditor } from '@/components/TextWidget';
 const Editors = {
   'text': TextWidgetEditor,
 };
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  title: {
+    flexGrow: 1,
+  },
+}));
 
 const Widgets: VFC = () => {
   return (
@@ -32,6 +51,7 @@ const Widgets: VFC = () => {
 }
 
 const Index: VFC = () => {
+  const classes = useStyles();
   const [currentUser, setCurrentUser] = useState<User | null>(null);
 
   useEffect(() => {
@@ -49,16 +69,31 @@ const Index: VFC = () => {
   };
 
   return currentUser !== null ? (
-      <AuthProvider>
-        <h1>Admin</h1>
-        <div>{currentUser?.displayName}</div>
-        <button onClick={signout}>Sign Out</button>
-        <Widgets />
-      </AuthProvider>
-    ) : (
-      <Signin />
-    )
-  ;
+    <AuthProvider>
+      <CssBaseline />
+      <div className={classes.root}>
+        <AppBar position="static">
+          <Toolbar>
+            <Typography variant="h6" className={classes.title}>
+              Admin
+            </Typography>
+            <Typography>{currentUser.email}</Typography>
+            <Button color="inherit" onClick={signout}>
+              Logout
+            </Button>
+          </Toolbar>
+        </AppBar>
+
+        <Container>
+          <Box my={4}>
+            <Widgets />
+          </Box>
+        </Container>
+      </div>
+    </AuthProvider>
+  ) : (
+    <Signin />
+  );
 };
 
 export { Index };
