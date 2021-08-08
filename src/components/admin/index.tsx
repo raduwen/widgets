@@ -15,9 +15,11 @@ import { AuthProvider } from '@/lib/AuthProvider';
 import { auth } from '@/lib/firebase';
 import { Signin } from '@/components/admin/signin';
 import { TextWidgetEditor } from '@/components/TextWidget';
+import { TimeWidgetEditor } from '@/components/TimeWidget';
 
 const Editors = {
-  'text': TextWidgetEditor,
+  text: TextWidgetEditor,
+  time: TimeWidgetEditor,
 };
 
 const useStyles = makeStyles((theme) => ({
