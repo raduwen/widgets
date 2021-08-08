@@ -40,7 +40,7 @@ class TimeWidgetEditor extends Component<Props, TimeWidgetProps> {
             fullWidth
             variant="outlined"
             onChange={(e) => {
-              this.setState({ ...this.state, size: e.target.value });
+              this.setState({ ...this.state, size: parseFloat(e.target.value) });
             }}
             value={this.state.size}
           />
