@@ -37,7 +37,8 @@ const Widgets: VFC = () => {
           return (
             <>
               {
-                Object.entries(d.value || {}).map(([id, widget]) => {
+                Object.keys(d.value || {}).map((id) => {
+                  const widget: any = d.value[id];
                   const Editor = Editors[widget.name];
                   return <Editor key={id} id={id} props={widget.props} />
                 })

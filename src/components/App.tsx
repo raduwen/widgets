@@ -11,8 +11,7 @@ const App = () => {
 
   const mode = params.get('mode') || 'preview';
 
-  const Component = mode === 'preview' ? Preview :
-                    mode === 'admin' ? Admin : <></>;
+  const Component = mode === 'admin' ? Admin : Preview;
 
   return (
     <FirebaseDatabaseProvider firebase={firebase}>

@@ -55,9 +55,10 @@ class TextWidgetEditor extends Component<Props, TextWidgetProps> {
             return (
               <FormGroup>
                 <Button
+                  type="button"
                   color="primary"
                   variant="contained"
-                  onClick={async (e: Event) => {
+                  onClick={async (e: any) => {
                     e.preventDefault();
                     await runMutation(this.state);
                   }}

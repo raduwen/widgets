@@ -19,7 +19,8 @@ const Preview: VFC = () => {
           return (
             <>
               {
-                Object.entries(widgets).map(([id, widget]) => {
+                Object.keys(widgets).map((id) => {
+                  const widget: any = widgets[id];
                   const Widget = Widgets[widget.name];
                   return <Widget key={id} {...widget.props} />
                 })
