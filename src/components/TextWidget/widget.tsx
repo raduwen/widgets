@@ -19,18 +19,19 @@ const defaultStyle: CSSProperties = {
   boxSizing: 'border-box',
   whiteSpace: 'pre-wrap',
   overflow: 'hidden',
-  color: 'white',
-  backgroundColor: 'rgba(0, 0, 0 0.1)',
-  textShadow: calcTextShadow(1, 'black'),
+  color: '#ffffff',
+  backgroundColor: 'rgba(0,0,0,0.1)',
+  textShadow: calcTextShadow(1, '#000000'),
   width: 320,
   height: 540,
-  padding: '4px 8px',
+  padding: '0.25rem 0.5rem',
   position: 'absolute',
 };
 
 const TextWidget: VFC<TextWidgetProps> = ({
   text,
   textColor,
+  fontSize,
   backgroundColor,
   edgeWeight,
   edgeColor,
@@ -39,26 +40,23 @@ const TextWidget: VFC<TextWidgetProps> = ({
   padding,
   position,
 }) => {
-  const edge = calcTextShadow(edgeWeight || 1, edgeColor || 'black');
+  const edge = calcTextShadow(edgeWeight || 1, edgeColor || '#000000');
 
   const style: CSSProperties = {
     ...defaultStyle,
     width: `${width || 320}px`,
-    height: `${height | 540}px`,
-    padding: padding || '4px 8px',
-    color: textColor || 'white',
+    height: `${height || 540}px`,
+    padding: padding || '0.25rem 0.5rem',
+    color: textColor || '#ffffff',
+    fontSize: fontSize || '1rem',
     textShadow: edge,
-    backgroundColor: backgroundColor || 'rgba(0, 0, 0, 0.1)',
+    backgroundColor: backgroundColor || 'rgba(0,0,0,0.1)',
   };
 
-  if (position?.top || position?.right || position?.bottom || position?.left) {
-    if (position?.top) style.top = position.top;
-    if (position?.right) style.right = position.right;
-    if (position?.bottom) style.bottom = position.bottom;
-    if (position?.left) style.left = position.left;
-  } else {
-    style.right = 0;
-  }
+  if (position?.top !== undefined) style.top = position.top;
+  if (position?.right !== undefined) style.right = position.right;
+  if (position?.bottom !== undefined) style.bottom = position.bottom;
+  if (position?.left !== undefined) style.left = position.left;
 
   console.log(style);
 
