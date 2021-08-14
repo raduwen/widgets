@@ -8,6 +8,7 @@ type Position = {
 type TextWidgetProps = {
   text: string;
   textColor?: string;
+  fontSize?: string;
   backgroundColor?: string;
   edgeWeight?: number; // px
   edgeColor?: string;
