@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Property } from 'csstype';
 import styled from 'styled-components';
 import { TextField, Button, Typography } from '@material-ui/core';
 import { FirebaseDatabaseMutation } from '@react-firebase/database'
@@ -141,6 +142,18 @@ class TextWidgetEditor extends Component<Props, TextWidgetProps> {
             value={this.state.edgeColor}
           />
           <TextField
+            type="text"
+            label="text align"
+            fullWidth
+            variant="outlined"
+            onChange={(e) => {
+              this.setState({ ...this.state, textAlign: e.target.value as Property.TextAlign });
+            }}
+            value={this.state.textAlign}
+          />
+        </FormGroup>
+        <FormGroup>
+          <TextField
             type="color"
             label="background color"
             fullWidth
@@ -165,8 +178,6 @@ class TextWidgetEditor extends Component<Props, TextWidgetProps> {
             }}
             value={Color.fromRGBA(this.state.backgroundColor).a}
           />
-        </FormGroup>
-        <FormGroup>
           <TextField
             type="number"
             label="width"
@@ -187,7 +198,8 @@ class TextWidgetEditor extends Component<Props, TextWidgetProps> {
             }}
             value={this.state.height}
           />
-
+        </FormGroup>
+        <FormGroup>
           <TextField
             type="number"
             label="position top"
