@@ -22,6 +22,7 @@ const defaultStyle: CSSProperties = {
   color: '#ffffff',
   backgroundColor: 'rgba(0,0,0,0.1)',
   textShadow: calcTextShadow(1, '#000000'),
+  textAlign: 'left',
   width: 320,
   height: 540,
   padding: '0.25rem 0.5rem',
@@ -32,6 +33,7 @@ const TextWidget: VFC<TextWidgetProps> = ({
   text,
   textColor,
   fontSize,
+  textAlign,
   backgroundColor,
   edgeWeight,
   edgeColor,
@@ -50,6 +52,7 @@ const TextWidget: VFC<TextWidgetProps> = ({
     color: textColor || '#ffffff',
     fontSize: fontSize || '1rem',
     textShadow: edge,
+    textAlign: textAlign || 'left',
     backgroundColor: backgroundColor || 'rgba(0,0,0,0.1)',
   };
 

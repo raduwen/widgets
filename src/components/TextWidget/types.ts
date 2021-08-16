@@ -1,3 +1,5 @@
+import { Property } from 'csstype';
+
 type Position = {
   top?: number;    // px
   right?: number;  // px
@@ -9,6 +11,7 @@ type TextWidgetProps = {
   text: string;
   textColor?: string;
   fontSize?: string;
+  textAlign?: Property.TextAlign;
   backgroundColor?: string;
   edgeWeight?: number; // px
   edgeColor?: string;
