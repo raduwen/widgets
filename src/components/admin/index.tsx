@@ -24,7 +24,15 @@ const Editors = {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+    height: '100vh',
+    overflow: 'hidden',
+  },
+  content: {
+    flex: 1,
+    overflow: 'auto',
   },
   title: {
     flexGrow: 1,
@@ -87,7 +95,7 @@ const Index: VFC = () => {
           </Toolbar>
         </AppBar>
 
-        <Container>
+        <Container className={classes.content}>
           <Box my={4}>
             <Widgets />
           </Box>
