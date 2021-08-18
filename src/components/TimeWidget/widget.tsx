@@ -11,7 +11,7 @@ class TimeWidget extends React.Component<TimeWidgetProps, TimeWidgetState> {
   constructor(props: TimeWidgetProps) {
     super(props)
     this.state = {
-      time: new Date()
+      time: new Date(),
     };
   }
 
@@ -19,7 +19,7 @@ class TimeWidget extends React.Component<TimeWidgetProps, TimeWidgetState> {
     const { size } = this.props
 
     const style: CSSProperties = {
-      display: 'flex',
+      display: this.props.hidden ? 'none' : 'flex',
       justifyContent: 'center',
       alignItems: 'center',
       textAlign: 'center',
@@ -33,7 +33,7 @@ class TimeWidget extends React.Component<TimeWidgetProps, TimeWidgetState> {
       background: 'rgba(0, 128, 128, 0.75)',
       transform: `translate(${size*1.25}px, ${size*2.4}px) rotate(-20deg)`,
       fontSize: `${size}px`,
-      fontWeight: 'bold'
+      fontWeight: 'bold',
     }
 
     return (

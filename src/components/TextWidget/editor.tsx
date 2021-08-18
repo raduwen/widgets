@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import { Property } from 'csstype';
 import styled from 'styled-components';
-import { TextField, Button, Typography } from '@material-ui/core';
+import {
+  TextField,
+  Button,
+  Typography,
+  FormControlLabel,
+  Checkbox,
+} from '@material-ui/core';
 import { FirebaseDatabaseMutation } from '@react-firebase/database'
 import type { TextWidgetProps } from '@/components/TextWidget/types';
 
@@ -283,6 +289,21 @@ class TextWidgetEditor extends Component<Props, TextWidgetProps> {
               this.setState({ ...this.state, position: pos });
             }}
             value={this.state.position?.left}
+          />
+        </FormGroup>
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={this.state.hidden}
+                onChange={(e) => {
+                  this.setState({ ...this.state, hidden: e.target.checked });
+                }}
+                name="hidden"
+                color="primary"
+              />
+            }
+            label="非表示"
           />
         </FormGroup>
 

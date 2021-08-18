@@ -1,6 +1,12 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { TextField, Button, Typography } from '@material-ui/core';
+import {
+  TextField,
+  Button,
+  Typography,
+  FormControlLabel,
+  Checkbox,
+} from '@material-ui/core';
 import { FirebaseDatabaseMutation } from '@react-firebase/database'
 import type { TimeWidgetProps } from './types';
 
@@ -43,6 +49,21 @@ class TimeWidgetEditor extends Component<Props, TimeWidgetProps> {
               this.setState({ ...this.state, size: parseFloat(e.target.value) });
             }}
             value={this.state.size}
+          />
+        </FormGroup>
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={this.state.hidden}
+                onChange={(e) => {
+                  this.setState({ ...this.state, hidden: e.target.checked });
+                }}
+                name="hidden"
+                color="primary"
+              />
+            }
+            label="非表示"
           />
         </FormGroup>
 

@@ -19,6 +19,7 @@ type TextWidgetProps = {
   height?: number;     // px
   padding?: string;    // px
   position?: Position;
+  hidden: boolean;
 };
 
 export type { Position, TextWidgetProps };
