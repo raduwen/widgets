@@ -305,6 +305,19 @@ class TextWidgetEditor extends Component<Props, TextWidgetProps> {
             }
             label="非表示"
           />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={this.state.autoHidden}
+                onChange={(e) => {
+                  this.setState({ ...this.state, autoHidden: e.target.checked });
+                }}
+                name="auto-hidden"
+                color="primary"
+              />
+            }
+            label="自動非表示"
+          />
         </FormGroup>
 
         <FirebaseDatabaseMutation
