@@ -1,9 +1,9 @@
 version: 2
 updates:
-  package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: "weekly"
-    timezone: "Asia/Tokyo"
-    time: "09:00"
-    day: "saturday"
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      timezone: "Asia/Tokyo"
+      time: "09:00"
+      day: "saturday"
