@@ -323,11 +323,6 @@
     "@firebase/util" "1.2.0"
     tslib "^2.1.0"
 
-"@firebase/app-types@0.6.2":
-  version "0.6.2"
-  resolved "https://registry.yarnpkg.com/@firebase/app-types/-/app-types-0.6.2.tgz#8578cb1061a83ced4570188be9e225d54e0f27fb"
-  integrity sha512-2VXvq/K+n8XMdM4L2xy5bYp2ZXMawJXluUIDzUBvMthVR+lhxK4pfFiqr1mmDbv9ydXvEAuFsD+6DpcZuJcSSw==
-
 "@firebase/app-types@0.6.3", "@firebase/app-types@^0.6.3":
   version "0.6.3"
   resolved "https://registry.yarnpkg.com/@firebase/app-types/-/app-types-0.6.3.tgz#3f10514786aad846d74cd63cb693556309918f4b"
@@ -371,19 +366,12 @@
     "@firebase/util" "1.2.0"
     tslib "^2.1.0"
 
-"@firebase/database-types@0.7.3":
+"@firebase/database-types@0.7.3", "@firebase/database-types@^0.7.3":
   version "0.7.3"
   resolved "https://registry.yarnpkg.com/@firebase/database-types/-/database-types-0.7.3.tgz#819f16dd4c767c864b460004458620f265a3f735"
   integrity sha512-dSOJmhKQ0nL8O4EQMRNGpSExWCXeHtH57gGg0BfNAdWcKhC8/4Y+qfKLfWXzyHvrSecpLmO0SmAi/iK2D5fp5A==
   dependencies:
     "@firebase/app-types" "0.6.3"
-
-"@firebase/database-types@^0.7.2":
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/@firebase/database-types/-/database-types-0.7.2.tgz#449c4b36ec59a1ad9089797b540e2ba1c0d4fcbf"
-  integrity sha512-cdAd/dgwvC0r3oLEDUR+ULs1vBsEvy0b27nlzKhU6LQgm9fCDzgaH9nFGv8x+S9dly4B0egAXkONkVoWcOAisg==
-  dependencies:
-    "@firebase/app-types" "0.6.2"
 
 "@firebase/database@0.10.9":
   version "0.10.9"
