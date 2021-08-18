@@ -42,6 +42,7 @@ const TextWidget: VFC<TextWidgetProps> = ({
   padding,
   position,
   hidden,
+  autoHidden,
 }) => {
   const edge = calcTextShadow(edgeWeight || 1, edgeColor || '#000000');
 
@@ -55,7 +56,7 @@ const TextWidget: VFC<TextWidgetProps> = ({
     textShadow: edge,
     textAlign: textAlign || 'left',
     backgroundColor: backgroundColor || 'rgba(0,0,0,0.1)',
-    display: hidden ? 'none' : 'block',
+    display: hidden || autoHidden && text.length === 0 ? 'none' : 'block',
   };
 
   if (position?.top !== undefined) style.top = position.top;
