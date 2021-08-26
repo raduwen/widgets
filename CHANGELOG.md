@@ -1,3 +1,7 @@
+## v0.4.1
+### Fix
+- development modeでうまく動作しないのでmpaプラグインを導入して調整した
+
 ## v0.4.0
 ### Feature
 - Preview(/) と Admin(/admin) ページを分割した
