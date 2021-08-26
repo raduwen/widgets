@@ -18,6 +18,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       input: {
+        main: 'index.html',
         preview: 'preview/index.html',
         admin: 'admin/index.html'
       }
