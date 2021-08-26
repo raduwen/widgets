@@ -2,11 +2,11 @@ import React from 'react';
 import { render } from 'react-dom';
 
 import '@/global.css';
-import { App } from '@/components/App';
+import { PreviewApp } from '@/components/PreviewApp';
 
 render(
   <React.StrictMode>
-    <App />
+    <PreviewApp />
   </React.StrictMode>,
   document.getElementById('root')
 );
