@@ -20,7 +20,7 @@
     "styled-components": "^5.3.1"
   },
   "devDependencies": {
-    "@firebase/app-types": "^0.6.3",
+    "@firebase/app-types": "^0.7.0",
     "@firebase/auth-types": "^0.10.3",
     "@firebase/database-types": "^0.9.0",
     "@types/node": "^16.7.2",
