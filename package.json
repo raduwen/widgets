@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@firebase/app-types": "^0.7.0",
-    "@firebase/auth-types": "^0.10.3",
+    "@firebase/auth-types": "^0.11.0",
     "@firebase/database-types": "^0.9.0",
     "@types/node": "^16.7.2",
     "@types/react": "^17.0.19",
