@@ -5551,10 +5551,10 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-vite-plugin-mpa@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/vite-plugin-mpa/-/vite-plugin-mpa-1.0.3.tgz#1c6ee5a8e8f5ace32e60827433fc73b56d705724"
-  integrity sha512-qNA0koRvn+iR1KUUjbWS1GRPXqhPCx17hdkpJ3VxdbjjnZcmhtMce/oN/6ww9g7fSN4McdNUO5r8Hsy9axu8kA==
+vite-plugin-mpa@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/vite-plugin-mpa/-/vite-plugin-mpa-1.1.0.tgz#7da9a243f90ae7fe88e5a63a8e993eaa94616461"
+  integrity sha512-EUv6i8XQeRmguYdSkn7NH2DJXwLp9Vr1Z1ovR+GGMZsiOMz3pTfHFuTqIx/QTmopMCUVwVeCGW78LllOmtZNSg==
   dependencies:
     connect-history-api-fallback "1.6.0"
     shelljs "0.8.4"
