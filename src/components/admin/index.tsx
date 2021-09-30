@@ -16,10 +16,12 @@ import { auth } from '@/lib/firebase';
 import { Signin } from '@/components/admin/signin';
 import { TextWidgetEditor } from '@/components/TextWidget';
 import { TimeWidgetEditor } from '@/components/TimeWidget';
+import { IFrameWidgetEditor } from '@/components/IFrameWidget';
 
 const Editors = {
   text: TextWidgetEditor,
   time: TimeWidgetEditor,
+  iframe: IFrameWidgetEditor,
 };
 
 const useStyles = makeStyles((theme) => ({
