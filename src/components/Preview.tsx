@@ -3,10 +3,12 @@ import { FirebaseDatabaseNode } from '@react-firebase/database';
 
 import { TextWidget } from '@/components/TextWidget';
 import { TimeWidget } from '@/components/TimeWidget';
+import { IFrameWidget } from '@/components/IFrameWidget';
 
 const Widgets = {
   'text': TextWidget,
   'time': TimeWidget,
+  'iframe': IFrameWidget,
 };
 
 const Preview: VFC = () => {
