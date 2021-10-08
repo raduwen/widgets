@@ -5,7 +5,7 @@ import {
   Typography,
   FormControlLabel,
   Checkbox,
-} from '@material-ui/core';
+} from '@mui/material';
 import styled from 'styled-components';
 import { Property } from 'csstype';
 import { ref, set } from '@firebase/database';
