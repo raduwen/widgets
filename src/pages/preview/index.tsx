@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { DataSnapshot } from '@firebase/database-types';
+import { ref, onValue, DataSnapshot } from '@firebase/database';
 
 import { db } from '@/lib/firebase';
 import { TextWidget } from '@/components/TextWidget';
@@ -23,7 +23,8 @@ const PreviewPage = () => {
   const [widgets, setWidgets] = useState<WidgetList>({});
 
   useEffect(() => {
-    db.ref('/widgets').on('value', (snap: DataSnapshot) => {
+    const widgetsRef = ref(db, '/widgets');
+    onValue(widgetsRef, (snap: DataSnapshot) => {
       if (snap?.val()) {
         setWidgets(snap.val());
       }

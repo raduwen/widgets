@@ -8,6 +8,7 @@ import {
 } from '@material-ui/core';
 import styled from 'styled-components';
 import { Property } from 'csstype';
+import { ref, set } from '@firebase/database';
 import { db } from '@/lib/firebase';
 import type { TextWidgetProps } from '@/components/TextWidget/types';
 
@@ -90,7 +91,7 @@ class TextWidgetEditor extends Component<Props, TextWidgetProps> {
 
   save(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    db.ref(`/widgets/${this.props.id}/props`).set(this.state);
+    set(ref(db, `/widgets/${this.props.id}/props`), this.state);
   }
 
   render() {

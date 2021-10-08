@@ -1,5 +1,7 @@
-import React, { VFC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import styled from 'styled-components';
+import { signInWithEmailAndPassword } from '@firebase/auth';
 import { TextField, Button } from '@material-ui/core';
 import { auth } from '@/lib/firebase';
 
@@ -19,14 +21,16 @@ type SignInFormProps = {
   redirectTo: string;
 };
 
-const SignInForm: VFC<SignInFormProps> = ({ redirectTo }) => {
+const SignInForm = ({ redirectTo }: SignInFormProps) => {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const signin = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
-      await auth.signInWithEmailAndPassword(email, password);
+      await signInWithEmailAndPassword(auth, email, password);
+      router.push(redirectTo);
     } catch (err) {
       alert(err.message);
     }
