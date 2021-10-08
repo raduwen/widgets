@@ -1,15 +1,13 @@
-import React from 'react';
-
-import { Index } from '@/components/admin'
+import { Preview } from '@/components/Preview'
 import { FirebaseDatabaseProvider } from '@react-firebase/database';
 import firebase from '@/lib/firebase';
 
-const AdminApp = () => {
+const PreviewPage = () => {
   return (
     <FirebaseDatabaseProvider firebase={firebase}>
-      <Index />
+      <Preview />
     </FirebaseDatabaseProvider>
   );
 };
 
-export { AdminApp };
+export default PreviewPage;
