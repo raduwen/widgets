@@ -1,3 +1,6 @@
+## v0.5.0
+- viteからNext.jsに戻した
+
 ## v0.4.1
 ### Fix
 - development modeでうまく動作しないのでmpaプラグインを導入して調整した
