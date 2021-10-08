@@ -1,3 +1,6 @@
+## v0.5.1
+- firebase 8からfirebase 9に更新した
+
 ## v0.5.0
 - viteからNext.jsに戻した
 
