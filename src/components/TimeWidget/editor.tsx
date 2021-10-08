@@ -6,7 +6,7 @@ import {
   Typography,
   FormControlLabel,
   Checkbox,
-} from '@material-ui/core';
+} from '@mui/material';
 import { ref, set } from '@firebase/database';
 import { db } from '@/lib/firebase';
 import type { TimeWidgetProps } from './types';

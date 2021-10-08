@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import { signInWithEmailAndPassword } from '@firebase/auth';
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button } from '@mui/material';
 import { auth } from '@/lib/firebase';
 
 const FormGroup = styled.div`

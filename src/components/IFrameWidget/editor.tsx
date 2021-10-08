@@ -6,7 +6,7 @@ import {
   TextField,
   Button,
   Typography,
-} from '@material-ui/core';
+} from '@mui/material';
 import type { IFrameWidgetProps } from './types';
 
 type Props = {
