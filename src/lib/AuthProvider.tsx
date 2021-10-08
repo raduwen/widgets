@@ -1,5 +1,5 @@
-import { User } from '@firebase/auth-types';
-import React, { FC, createContext, useEffect, useState } from 'react';
+import { User, onAuthStateChanged } from '@firebase/auth';
+import { FC, createContext, useEffect, useState } from 'react';
 import { auth } from '@/lib/firebase';
 
 type AuthContextProps = {
@@ -12,7 +12,7 @@ const AuthProvider: FC = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<User | null | undefined>(undefined);
 
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
+    onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
     });
   });

@@ -7,6 +7,7 @@ import {
   FormControlLabel,
   Checkbox,
 } from '@material-ui/core';
+import { ref, set } from '@firebase/database';
 import { db } from '@/lib/firebase';
 import type { TimeWidgetProps } from './types';
 
@@ -36,7 +37,7 @@ class TimeWidgetEditor extends Component<Props, TimeWidgetProps> {
 
   save(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    db.ref(`/widgets/${this.props.id}/props`).set(this.state);
+    set(ref(db, `/widgets/${this.props.id}/props`), this.state);
   }
 
   render() {

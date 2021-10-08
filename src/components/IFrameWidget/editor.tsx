@@ -1,5 +1,6 @@
 import React, { Component, MouseEvent } from 'react';
 import styled from 'styled-components';
+import { ref, set } from '@firebase/database';
 import { db } from '@/lib/firebase';
 import {
   TextField,
@@ -31,7 +32,7 @@ class IFrameWidgetEditor extends Component<Props, IFrameWidgetProps> {
 
   save(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    db.ref(`/widgets/${this.props.id}/props`).set(this.state);
+    set(ref(db, `/widgets/${this.props.id}/props`), this.state);
   }
 
   render() {

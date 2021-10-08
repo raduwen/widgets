@@ -9,8 +9,8 @@ import {
   Typography,
   Button
 } from '@material-ui/core';
-import { User } from '@firebase/auth-types';
-import { DataSnapshot } from '@firebase/database-types';
+import { User } from '@firebase/auth';
+import { ref, onValue, DataSnapshot } from '@firebase/database';
 
 import { AuthProvider } from '@/lib/AuthProvider';
 import { auth, db } from '@/lib/firebase';
@@ -53,7 +53,8 @@ const Widgets = () => {
   const [widgets, setWidgets] = useState<WidgetList>({});
 
   useEffect(() => {
-    db.ref('/widgets').on('value', (snap: DataSnapshot) => {
+    const widgetsRef = ref(db, '/widgets');
+    onValue(widgetsRef, (snap: DataSnapshot) => {
       if (snap?.val()) {
         setWidgets(snap.val());
       }
