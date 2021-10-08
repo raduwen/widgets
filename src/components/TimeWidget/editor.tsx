@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component, MouseEvent } from 'react';
 import styled from 'styled-components';
 import {
   TextField,
@@ -7,7 +7,7 @@ import {
   FormControlLabel,
   Checkbox,
 } from '@material-ui/core';
-import { FirebaseDatabaseMutation } from '@react-firebase/database'
+import { db } from '@/lib/firebase';
 import type { TimeWidgetProps } from './types';
 
 type Props = {
@@ -28,67 +28,63 @@ const FormGroup = styled.div`
 `;
 
 class TimeWidgetEditor extends Component<Props, TimeWidgetProps> {
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
     this.state = this.props.props;
+    this.save = this.save.bind(this);
+  }
+
+  save(e: MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    db.ref(`/widgets/${this.props.id}/props`).set(this.state);
   }
 
   render() {
     return (
       <div>
-        <Typography variant="h6">
-          TimeWidget : {this.props.id}
-        </Typography>
-        <FormGroup>
-          <TextField
-            type="number"
-            label="size"
-            fullWidth
-            variant="outlined"
-            onChange={(e) => {
-              this.setState({ ...this.state, size: parseFloat(e.target.value) });
-            }}
-            value={this.state.size}
-          />
-        </FormGroup>
-        <FormGroup>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={this.state.hidden}
-                onChange={(e) => {
-                  this.setState({ ...this.state, hidden: e.target.checked });
-                }}
-                name="hidden"
-                color="primary"
-              />
-            }
-            label="非表示"
-          />
-        </FormGroup>
-
-        <FirebaseDatabaseMutation
-          type="set"
-          path={`/widgets/${this.props.id}/props`}
-        >
-          {({ runMutation }) => {
-            return (
-              <FormGroup>
-                <Button
-                  type="button"
-                  color="primary"
-                  variant="contained"
-                  onClick={async (e: any) => {
-                    e.preventDefault();
-                    await runMutation(this.state);
+        <>
+          <Typography variant="h6">
+            TimeWidget : {this.props.id}
+          </Typography>
+          <FormGroup>
+            <TextField
+              type="number"
+              label="size"
+              fullWidth
+              variant="outlined"
+              onChange={(e) => {
+                this.setState({ ...this.state, size: parseFloat(e.target.value) });
+              }}
+              value={this.state.size}
+            />
+          </FormGroup>
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={this.state.hidden}
+                  onChange={(e) => {
+                    this.setState({ ...this.state, hidden: e.target.checked });
                   }}
-                >
-                  Save
-                </Button>
-              </FormGroup>
-            );
-          }}
-        </FirebaseDatabaseMutation>
+                  name="hidden"
+                  color="primary"
+                />
+              }
+              label="非表示"
+            />
+          </FormGroup>
+        </>
+
+        <FormGroup>
+          <Button
+            type="button"
+            color="primary"
+            variant="contained"
+            onClick={this.save}
+          >
+            Save
+          </Button>
+        </FormGroup>
       </div>
     );
   }

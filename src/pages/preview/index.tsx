@@ -28,7 +28,7 @@ const PreviewPage = () => {
         setWidgets(snap.val());
       }
     });
-  }, [db]);
+  }, []);
 
   return (
     <div>
