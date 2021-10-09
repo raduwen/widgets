@@ -41,17 +41,18 @@ class Color {
   }
 
   // from #rrggbb
-  static fromRGBCode(rgb: string): Color {
-    return new Color(
+  static fromRGBCode?(rgb: string): Color {
+    return rgb ? new Color(
       parseInt(rgb.substr(1,2), 16),
       parseInt(rgb.substr(3,2), 16),
       parseInt(rgb.substr(5,2), 16),
       1,
-    );
+    ) : new Color(0, 0, 0, 1);
   }
 
   // from rgba(r,g,b,a)
-  static fromRGBA(rgba: string): Color {
+  static fromRGBA(rgba?: string): Color {
+    if (!rgba) return new Color(0, 0, 0, 1);
     const match = rgba.match(/rgba\((\d+),(\d+),(\d+),(\d(\.\d+)?)\)/);
     return new Color(
       parseInt(match[1]),
@@ -341,6 +342,12 @@ class TextWidgetEditor extends Component<Props, TextWidgetProps> {
         </FormGroup>
       </div>
     );
+  }
+
+  public static defaultProps: TextWidgetProps = {
+    text: "",
+    hidden: false,
+    autoHidden: true,
   }
 }
 

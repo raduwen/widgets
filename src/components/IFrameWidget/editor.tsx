@@ -195,6 +195,14 @@ class IFrameWidgetEditor extends Component<Props, IFrameWidgetProps> {
       </div>
     );
   }
+
+  public static defaultProps: IFrameWidgetProps = {
+    url: "",
+    retry_time: 10,
+    retry_count: 3,
+    width: 640,
+    height: 480,
+  };
 }
 
 export { IFrameWidgetEditor };

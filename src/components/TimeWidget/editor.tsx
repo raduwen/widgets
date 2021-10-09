@@ -89,6 +89,11 @@ class TimeWidgetEditor extends Component<Props, TimeWidgetProps> {
       </div>
     );
   }
+
+  public static defaultProps: TimeWidgetProps = {
+    size: 24,
+    hidden: false,
+  };
 }
 
 export { TimeWidgetEditor };
