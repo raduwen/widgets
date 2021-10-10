@@ -88,11 +88,19 @@ class TextWidgetEditor extends Component<Props, TextWidgetProps> {
     super(props);
     this.state = this.props.props;
     this.save = this.save.bind(this);
+    this.delete = this.delete.bind(this);
   }
 
   save(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     set(ref(db, `/widgets/${this.props.id}/props`), this.state);
+  }
+
+  delete(e: MouseEvent<HTMLButtonElement>) {
+    e.preventDefault();
+    if (confirm('本当に削除してよろしいですか?')) {
+      set(ref(db, `/widgets/${this.props.id}`), null);
+    }
   }
 
   render() {
@@ -338,6 +346,15 @@ class TextWidgetEditor extends Component<Props, TextWidgetProps> {
             onClick={this.save}
           >
             Save
+          </Button>
+          <Button
+            sx={{ ml: 1 }}
+            type="button"
+            color="error"
+            variant="outlined"
+            onClick={this.delete}
+          >
+            Delete
           </Button>
         </FormGroup>
       </div>
