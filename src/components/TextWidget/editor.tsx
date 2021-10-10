@@ -13,6 +13,7 @@ import { db } from '@/lib/firebase';
 import type { TextWidgetProps } from '@/components/TextWidget/types';
 
 type Props = {
+  profile: string;
   id: string;
   props: TextWidgetProps;
 };
@@ -93,13 +94,13 @@ class TextWidgetEditor extends Component<Props, TextWidgetProps> {
 
   save(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    set(ref(db, `/widgets/${this.props.id}/props`), this.state);
+    set(ref(db, `/profiles/${this.props.profile}/widgets/${this.props.id}/props`), this.state);
   }
 
   delete(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     if (confirm('本当に削除してよろしいですか?')) {
-      set(ref(db, `/widgets/${this.props.id}`), null);
+      set(ref(db, `/profiles/${this.props.profile}/widgets/${this.props.id}`), null);
     }
   }
 
