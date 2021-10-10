@@ -67,9 +67,10 @@ type WidgetList = { [key: string]: Widget }
 
 const Widgets = () => {
   const [widgets, setWidgets] = useState<WidgetList>({});
+  const profile = 'default';
 
   useEffect(() => {
-    const widgetsRef = ref(db, '/widgets');
+    const widgetsRef = ref(db, `/profiles/${profile}/widgets`);
     onValue(widgetsRef, (snap: DataSnapshot) => {
       if (snap?.val()) {
         setWidgets(snap.val());
@@ -83,7 +84,7 @@ const Widgets = () => {
         Object.keys(widgets).map((id) => {
           const widget: any = widgets[id];
           const Editor = Editors[widget.name];
-          return <Editor key={id} id={id} props={widget.props} />
+          return <Editor key={id} id={id} props={widget.props} profile={profile} />
         })
       }
     </div>
@@ -91,6 +92,7 @@ const Widgets = () => {
 };
 
 const AddWidgetModel = ({ open, onClose }: { open: boolean, onClose: () => void }) => {
+  const profile = 'default';
   const [widgetId, setWidgetId] = useState("");
   const [widgetType, setWidgetType] = useState("text");
 
@@ -152,7 +154,7 @@ const AddWidgetModel = ({ open, onClose }: { open: boolean, onClose: () => void 
       </DialogContent>
       <DialogActions>
         <Button color="primary" variant="contained" onClick={() => {
-          set(ref(db, `/widgets/${widgetId}`), {
+          set(ref(db, `/profiles/${profile}/widgets/${widgetId}`), {
             name: widgetType,
             props: Editors[widgetType].defaultProps
           });

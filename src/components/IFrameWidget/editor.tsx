@@ -10,6 +10,7 @@ import {
 import type { IFrameWidgetProps } from './types';
 
 type Props = {
+  profile: string;
   id: string;
   props: IFrameWidgetProps;
 };
@@ -33,13 +34,13 @@ class IFrameWidgetEditor extends Component<Props, IFrameWidgetProps> {
 
   save(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    set(ref(db, `/widgets/${this.props.id}/props`), this.state);
+    set(ref(db, `/profiles/${this.props.profile}/widgets/${this.props.id}/props`), this.state);
   }
 
   delete(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     if (confirm('本当に削除してよろしいですか?')) {
-      set(ref(db, `/widgets/${this.props.id}`), null);
+      set(ref(db, `/profiles/${this.props.profile}/widgets/${this.props.id}`), null);
     }
   }
 

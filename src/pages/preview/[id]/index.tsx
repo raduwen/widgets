@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { ref, onValue, DataSnapshot } from '@firebase/database';
 
 import { db } from '@/lib/firebase';
@@ -20,8 +21,9 @@ type Widget = {
 type WidgetList = { [key: string]: Widget }
 
 const PreviewPage = () => {
+  const router = useRouter();
+  const profile = router.query.id;
   const [widgets, setWidgets] = useState<WidgetList>({});
-  const profile = 'default';
 
   useEffect(() => {
     const widgetsRef = ref(db, `/profiles/${profile}/widgets`);
@@ -30,7 +32,7 @@ const PreviewPage = () => {
         setWidgets(snap.val());
       }
     });
-  }, []);
+  }, [profile]);
 
   return (
     <div>

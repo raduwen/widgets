@@ -12,6 +12,7 @@ import { db } from '@/lib/firebase';
 import type { TimeWidgetProps } from './types';
 
 type Props = {
+  profile: string;
   id: string;
   props: TimeWidgetProps;
 };
@@ -31,6 +32,7 @@ const FormGroup = styled.div`
 class TimeWidgetEditor extends Component<Props, TimeWidgetProps> {
   constructor(props: Props) {
     super(props);
+    console.log(props);
     this.state = this.props.props;
     this.save = this.save.bind(this);
     this.delete = this.delete.bind(this);
@@ -38,13 +40,13 @@ class TimeWidgetEditor extends Component<Props, TimeWidgetProps> {
 
   save(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    set(ref(db, `/widgets/${this.props.id}/props`), this.state);
+    set(ref(db, `/profiles/${this.props.profile}/widgets/${this.props.id}/props`), this.state);
   }
 
   delete(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     if (confirm('本当に削除してよろしいですか?')) {
-      set(ref(db, `/widgets/${this.props.id}`), null);
+      set(ref(db, `/profiles/${this.props.profile}/widgets/${this.props.id}`), null);
     }
   }
 
