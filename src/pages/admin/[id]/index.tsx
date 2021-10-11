@@ -64,7 +64,6 @@ const useStyles = makeStyles((theme) => ({
 
 type Widget = {
   name: string;
-  props: any;
 }
 
 type WidgetList = { [key: string]: Widget }
@@ -85,7 +84,7 @@ const Widgets = ({ profile }: { profile: string }) => {
         Object.keys(widgets).map((id) => {
           const widget: any = widgets[id];
           const Editor = Editors[widget.name];
-          return <Editor key={`${profile}-${id}`} id={id} props={widget.props} profile={profile} />
+          return <Editor key={`${profile}-${id}`} id={id} profile={profile} />
         })
       }
     </div>

@@ -8,14 +8,13 @@ import {
 } from '@mui/material';
 import styled from 'styled-components';
 import { Property } from 'csstype';
-import { ref, set } from '@firebase/database';
+import { ref, set, onValue } from '@firebase/database';
 import { db } from '@/lib/firebase';
 import type { TextWidgetProps } from '@/components/TextWidget/types';
 
 type Props = {
   profile: string;
   id: string;
-  props: TextWidgetProps;
 };
 
 const FormGroup = styled.div`
@@ -87,7 +86,7 @@ class Color {
 class TextWidgetEditor extends Component<Props, TextWidgetProps> {
   constructor(props: Props) {
     super(props);
-    this.state = this.props.props;
+    this.state = TextWidgetEditor.defaultProps;
     this.save = this.save.bind(this);
     this.delete = this.delete.bind(this);
   }
@@ -102,6 +101,12 @@ class TextWidgetEditor extends Component<Props, TextWidgetProps> {
     if (confirm('本当に削除してよろしいですか?')) {
       set(ref(db, `/profiles/${this.props.profile}/widgets/${this.props.id}`), null);
     }
+  }
+
+  componentDidMount() {
+    onValue(ref(db, `/profiles/${this.props.profile}/widgets/${this.props.id}/props`), (snap) => {
+      this.setState(snap.val());
+    });
   }
 
   render() {

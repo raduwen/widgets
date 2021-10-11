@@ -1,6 +1,6 @@
 import React, { Component, MouseEvent } from 'react';
 import styled from 'styled-components';
-import { ref, set } from '@firebase/database';
+import { ref, set, onValue } from '@firebase/database';
 import { db } from '@/lib/firebase';
 import {
   TextField,
@@ -8,11 +8,11 @@ import {
   Typography,
 } from '@mui/material';
 import type { IFrameWidgetProps } from './types';
+import { IFrameWidget } from './widget';
 
 type Props = {
   profile: string;
   id: string;
-  props: IFrameWidgetProps;
 };
 
 const FormGroup = styled.div`
@@ -27,7 +27,7 @@ const FormGroup = styled.div`
 class IFrameWidgetEditor extends Component<Props, IFrameWidgetProps> {
   constructor(props: Props) {
     super(props);
-    this.state = this.props.props;
+    this.state = IFrameWidgetEditor.defaultProps;
     this.save = this.save.bind(this);
     this.delete = this.delete.bind(this);
   }
@@ -42,6 +42,12 @@ class IFrameWidgetEditor extends Component<Props, IFrameWidgetProps> {
     if (confirm('本当に削除してよろしいですか?')) {
       set(ref(db, `/profiles/${this.props.profile}/widgets/${this.props.id}`), null);
     }
+  }
+
+  componentDidMount() {
+    onValue(ref(db, `/profiles/${this.props.profile}/widgets/${this.props.id}/props`), (snap) => {
+      this.setState(snap.val());
+    });
   }
 
   render() {
