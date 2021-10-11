@@ -1,5 +1,5 @@
 import { useEffect, useState, MouseEvent } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter} from 'next/router';
 import styled from 'styled-components';
 import {
   CssBaseline,
@@ -62,6 +62,112 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+type Widget = {
+  name: string;
+  props: any;
+}
+
+type WidgetList = { [key: string]: Widget }
+
+const Widgets = ({ profile }: { profile: string }) => {
+  const [widgets, setWidgets] = useState<WidgetList>({});
+
+  useEffect(() => {
+    const widgetsRef = ref(db, `/profiles/${profile}/widgets`);
+    onValue(widgetsRef, (snap: DataSnapshot) => {
+      setWidgets(snap.val() || {});
+    });
+  }, [profile]);
+
+  return (
+    <div>
+      {
+        Object.keys(widgets).map((id) => {
+          const widget: any = widgets[id];
+          const Editor = Editors[widget.name];
+          return <Editor key={`${profile}-${id}`} id={id} props={widget.props} profile={profile} />
+        })
+      }
+    </div>
+  );
+};
+
+const AddWidgetDialog = ({ profile, open, onClose }: { profile: string, open: boolean, onClose: () => void }) => {
+  const [widgetId, setWidgetId] = useState("");
+  const [widgetType, setWidgetType] = useState("text");
+
+  const FormGroup = styled.div`
+    display: flex;
+    margin-bottom: 1rem;
+    & > div {
+      flex-grow: 1;
+      margin-left: 0.25rem;
+    }
+  `;
+
+  const style = {
+    display: 'flex',
+    flexDirection: 'column',
+    position: 'absolute' as 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 640,
+    bgcolor: 'background.paper',
+    border: '1px solid #ddd',
+    borderRadius: '4px',
+    boxShadow: 24,
+    pt: 4,
+    px: 4,
+    pb: 3,
+  };
+
+  return (
+    <Dialog
+      open={open}
+      onClose={onClose}
+    >
+      <DialogTitle>Add Widget</DialogTitle>
+      <DialogContent>
+        <FormGroup>
+          <FormControl variant="standard">
+            <TextField autoFocus fullWidth label="ID" value={widgetId} variant="standard" onChange={(e) => { setWidgetId(e.target.value); }}/>
+          </FormControl>
+        </FormGroup>
+
+        <FormGroup>
+          <FormControl variant="standard">
+            <InputLabel id="widget-type-label">Widget</InputLabel>
+            <Select
+              labelId="widget-type-label"
+              id="widget-type"
+              value={widgetType}
+              label="Widget"
+              onChange={(e) => { setWidgetType(e.target.value); }}
+            >
+              <MenuItem value={"text"}>Text</MenuItem>
+              <MenuItem value={"time"}>Time</MenuItem>
+              <MenuItem value={"iframe"}>IFrame</MenuItem>
+            </Select>
+          </FormControl>
+        </FormGroup>
+      </DialogContent>
+      <DialogActions>
+        <Button color="primary" variant="contained" onClick={() => {
+          set(ref(db, `/profiles/${profile}/widgets/${widgetId}`), {
+            name: widgetType,
+            props: Editors[widgetType].defaultProps
+          });
+
+          setWidgetId("");
+          setWidgetType("text");
+          onClose();
+        }}>Add</Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
+
 const AddProfileDialog = ({ open, onClose }: { open: boolean, onClose: () => void}) => {
   const [profileId, setProfileId] = useState("");
 
@@ -93,8 +199,10 @@ const AdminIndexPage = () => {
   const [userAnchorEl, setUserAnchorEl] = useState<HTMLElement | null>(null);
   const [profileAnchorEl, setProfileAnchorEl] = useState<HTMLElement | null>(null);
   const [addProfileDialogOpened, setAddProfileDialogOpened] = useState(false);
-  const [currentProfile, setCurrentProfile] = useState('default');
+  const [addWidgetDialogOpened, setAddWidgetDialogOpened] = useState(false);
   const [profiles, setProfiles] = useState<string[]>([]);
+
+  const currentProfile = router.query.id as string;
 
   const isUserMenuOpen = Boolean(userAnchorEl);
   const isProfileMenuOpen = Boolean(profileAnchorEl);
@@ -169,6 +277,13 @@ const AdminIndexPage = () => {
               <IconButton
                 size="large"
                 color="inherit"
+                onClick={()=>{setAddWidgetDialogOpened(true);}}
+              >
+                <AddIcon />
+              </IconButton>
+              <IconButton
+                size="large"
+                color="inherit"
                 edge="end"
                 aria-controls={userMenuId}
                 aria-haspopup="true"
@@ -206,6 +321,19 @@ const AdminIndexPage = () => {
             setAddProfileDialogOpened(false);
           }}
         />
+        <AddWidgetDialog
+          profile={currentProfile}
+          open={addWidgetDialogOpened}
+          onClose={() => {
+            setAddWidgetDialogOpened(false);
+          }}
+        />
+
+        <Container className={classes.content}>
+          <Box my={4}>
+            <Widgets profile={currentProfile} />
+          </Box>
+        </Container>
       </div>
     </AuthProvider>
   ) : (
