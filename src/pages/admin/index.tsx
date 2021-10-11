@@ -1,4 +1,5 @@
 import { useEffect, useState, MouseEvent } from 'react';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import styled from 'styled-components';
 import {
@@ -139,72 +140,81 @@ const AdminIndexPage = () => {
     setProfileAnchorEl(null);
   };
 
-  return currentUser !== null ? (
-    <AuthProvider>
-      <CssBaseline />
-      <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography variant="h6" className={classes.title}>
-              Admin
-            </Typography>
-            <Box sx={{ flexGrow: 1 }} />
-            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              <IconButton
-                size="large"
-                color="inherit"
-                edge="end"
-                aria-controls={profileMenuId}
-                aria-haspopup="true"
-                aria-expanded={isProfileMenuOpen ? 'true' : undefined}
-                onClick={handleProfileMenuOpen}
-               >
-                <WidgetsIcon />
-              </IconButton>
-              <IconButton
-                size="large"
-                color="inherit"
-                edge="end"
-                aria-controls={userMenuId}
-                aria-haspopup="true"
-                aria-expanded={isUserMenuOpen ? 'true' : undefined}
-                onClick={handleUserMenuOpen}
-               >
-                <AccountCircleIcon />
-              </IconButton>
-            </Box>
-          </Toolbar>
-        </AppBar>
-        <Menu
-          id={profileMenuId}
-          anchorEl={profileAnchorEl}
-          open={isProfileMenuOpen}
-          onClose={handleProfileMenuClose}
-        >
-          {profiles.map((profile) => (
-            <MenuItem key={profile} color="inherit" onClick={() => { router.push(`/admin/${profile}`); }}>{profile}</MenuItem>
-          ))}
-          <Divider />
-          <MenuItem color="inherit" onClick={() => { setAddProfileDialogOpened(true);}}>Add</MenuItem>
-        </Menu>
-        <Menu
-          id={userMenuId}
-          anchorEl={userAnchorEl}
-          open={isUserMenuOpen}
-          onClose={handleUserMenuClose}
-        >
-          <MenuItem color="inherit" onClick={signout}>Logout</MenuItem>
-        </Menu>
-        <AddProfileDialog
-          open={addProfileDialogOpened}
-          onClose={() => {
-            setAddProfileDialogOpened(false);
-          }}
-        />
-      </div>
-    </AuthProvider>
-  ) : (
-    <Signin />
+  return (
+    <>
+      <Head>
+        <title>Admin - Raduwen OBS Widgets</title>
+      </Head>
+      {
+        currentUser !== null ? (
+          <AuthProvider>
+            <CssBaseline />
+            <div className={classes.root}>
+              <AppBar position="static">
+                <Toolbar>
+                  <Typography variant="h6" className={classes.title}>
+                    Admin
+                  </Typography>
+                  <Box sx={{ flexGrow: 1 }} />
+                  <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                    <IconButton
+                      size="large"
+                      color="inherit"
+                      edge="end"
+                      aria-controls={profileMenuId}
+                      aria-haspopup="true"
+                      aria-expanded={isProfileMenuOpen ? 'true' : undefined}
+                      onClick={handleProfileMenuOpen}
+                    >
+                      <WidgetsIcon />
+                    </IconButton>
+                    <IconButton
+                      size="large"
+                      color="inherit"
+                      edge="end"
+                      aria-controls={userMenuId}
+                      aria-haspopup="true"
+                      aria-expanded={isUserMenuOpen ? 'true' : undefined}
+                      onClick={handleUserMenuOpen}
+                    >
+                      <AccountCircleIcon />
+                    </IconButton>
+                  </Box>
+                </Toolbar>
+              </AppBar>
+              <Menu
+                id={profileMenuId}
+                anchorEl={profileAnchorEl}
+                open={isProfileMenuOpen}
+                onClose={handleProfileMenuClose}
+              >
+                {profiles.map((profile) => (
+                  <MenuItem key={profile} color="inherit" onClick={() => { router.push(`/admin/${profile}`); }}>{profile}</MenuItem>
+                ))}
+                <Divider />
+                <MenuItem color="inherit" onClick={() => { setAddProfileDialogOpened(true);}}>Add</MenuItem>
+              </Menu>
+              <Menu
+                id={userMenuId}
+                anchorEl={userAnchorEl}
+                open={isUserMenuOpen}
+                onClose={handleUserMenuClose}
+              >
+                <MenuItem color="inherit" onClick={signout}>Logout</MenuItem>
+              </Menu>
+              <AddProfileDialog
+                open={addProfileDialogOpened}
+                onClose={() => {
+                  setAddProfileDialogOpened(false);
+                }}
+              />
+            </div>
+          </AuthProvider>
+        ) : (
+          <Signin />
+          )
+      }
+    </>
   );
 };
 

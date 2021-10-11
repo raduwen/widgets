@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { ref, onValue, DataSnapshot } from '@firebase/database';
 
@@ -35,15 +36,18 @@ const PreviewPage = () => {
   }, [profile]);
 
   return (
-    <div>
-      {
+    <>
+      <Head>
+        <title>{profile} - Raduwen OBS Widgets</title>
+      </Head>
+      <div>{
         Object.keys(widgets).map((id) => {
           const widget: any = widgets[id];
           const Widget = Widgets[widget.name];
           return <Widget key={id} {...widget.props} />
         })
-      }
-    </div>
+      }</div>
+    </>
   );
 };
 
