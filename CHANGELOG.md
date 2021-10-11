@@ -1,3 +1,11 @@
+## v0.6.0
+- Profile機能を追加
+- Widgetを追加できるようにした
+- Widgetを削除できるようにした
+
+## v0.5.2
+- material-ui 4からmui/material 5に更新した
+
 ## v0.5.1
 - firebase 8からfirebase 9に更新した
 
