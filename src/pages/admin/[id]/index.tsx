@@ -12,30 +12,21 @@ import {
   MenuItem,
   Divider,
   Typography,
-  Button,
   IconButton,
-  FormControl,
-  InputLabel,
-  TextField,
-  Select,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles'
 import AddIcon from '@mui/icons-material/Add';
 import WidgetsIcon from '@mui/icons-material/Widgets';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { User } from '@firebase/auth';
-import { ref, set, onValue, DataSnapshot } from '@firebase/database';
-
+import { ref, onValue, DataSnapshot } from '@firebase/database';
 import { AuthProvider } from '@/lib/AuthProvider';
 import { auth, db } from '@/lib/firebase';
 import { Signin } from '@/components/admin/signin';
 import { TextWidgetEditor } from '@/components/TextWidget';
 import { TimeWidgetEditor } from '@/components/TimeWidget';
 import { IFrameWidgetEditor } from '@/components/IFrameWidget';
+import { AddProfileDialog, AddWidgetDialog } from '@/components/admin/Dialog';
 
 const Editors = {
   text: TextWidgetEditor,
@@ -89,106 +80,6 @@ const Widgets = ({ profile }: { profile: string }) => {
         })
       }
     </div>
-  );
-};
-
-const AddWidgetDialog = ({ profile, open, onClose }: { profile: string, open: boolean, onClose: () => void }) => {
-  const [widgetId, setWidgetId] = useState("");
-  const [widgetType, setWidgetType] = useState("text");
-
-  const FormGroup = styled.div`
-    display: flex;
-    margin-bottom: 1rem;
-    & > div {
-      flex-grow: 1;
-      margin-left: 0.25rem;
-    }
-  `;
-
-  const style = {
-    display: 'flex',
-    flexDirection: 'column',
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 640,
-    bgcolor: 'background.paper',
-    border: '1px solid #ddd',
-    borderRadius: '4px',
-    boxShadow: 24,
-    pt: 4,
-    px: 4,
-    pb: 3,
-  };
-
-  return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-    >
-      <DialogTitle>Add Widget</DialogTitle>
-      <DialogContent>
-        <FormGroup>
-          <FormControl variant="standard">
-            <TextField autoFocus fullWidth label="ID" value={widgetId} variant="standard" onChange={(e) => { setWidgetId(e.target.value); }}/>
-          </FormControl>
-        </FormGroup>
-
-        <FormGroup>
-          <FormControl variant="standard">
-            <InputLabel id="widget-type-label">Widget</InputLabel>
-            <Select
-              labelId="widget-type-label"
-              id="widget-type"
-              value={widgetType}
-              label="Widget"
-              onChange={(e) => { setWidgetType(e.target.value); }}
-            >
-              <MenuItem value={"text"}>Text</MenuItem>
-              <MenuItem value={"time"}>Time</MenuItem>
-              <MenuItem value={"iframe"}>IFrame</MenuItem>
-            </Select>
-          </FormControl>
-        </FormGroup>
-      </DialogContent>
-      <DialogActions>
-        <Button color="primary" variant="contained" onClick={() => {
-          set(ref(db, `/profiles/${profile}/widgets/${widgetId}`), {
-            name: widgetType,
-            props: Editors[widgetType].defaultProps
-          });
-
-          setWidgetId("");
-          setWidgetType("text");
-          onClose();
-        }}>Add</Button>
-      </DialogActions>
-    </Dialog>
-  );
-};
-
-const AddProfileDialog = ({ open, onClose }: { open: boolean, onClose: () => void}) => {
-  const [profileId, setProfileId] = useState("");
-
-  return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Add Profile</DialogTitle>
-      <DialogContent>
-        <FormControl variant="standard">
-          <TextField required autoFocus fullWidth label="ID" value={profileId} variant="standard" onChange={(e) => { setProfileId(e.target.value); }} />
-        </FormControl>
-      </DialogContent>
-      <DialogActions>
-        <Button color="primary" variant="contained" onClick={() =>{
-          if (profileId.length > 0) {
-            set(ref(db, `/profiles/${profileId}/name`), profileId);
-            setProfileId("");
-            onClose();
-          }
-        }}>Add</Button>
-      </DialogActions>
-    </Dialog>
   );
 };
 
@@ -265,88 +156,88 @@ const AdminIndexPage = () => {
                   </Typography>
                   <Typography variant="h6" className={classes.title}>
                     Profile:{' '}
-        {currentProfile}
-      </Typography>
-      <Box sx={{ flexGrow: 1 }} />
-      <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-        <IconButton
-          size="large"
-          color="inherit"
-          edge="end"
-          aria-controls={profileMenuId}
-          aria-haspopup="true"
-          aria-expanded={isProfileMenuOpen ? 'true' : undefined}
-          onClick={handleProfileMenuOpen}
-        >
-          <WidgetsIcon />
-        </IconButton>
-        <IconButton
-          size="large"
-          color="inherit"
-          onClick={()=>{setAddWidgetDialogOpened(true);}}
-        >
-          <AddIcon />
-        </IconButton>
-        <IconButton
-          size="large"
-          color="inherit"
-          edge="end"
-          aria-controls={userMenuId}
-          aria-haspopup="true"
-          aria-expanded={isUserMenuOpen ? 'true' : undefined}
-          onClick={handleUserMenuOpen}
-        >
-          <AccountCircleIcon />
-        </IconButton>
-      </Box>
-    </Toolbar>
-  </AppBar>
-  <Menu
-    id={profileMenuId}
-    anchorEl={profileAnchorEl}
-    open={isProfileMenuOpen}
-    onClose={handleProfileMenuClose}
-  >
-    {profiles.map((profile) => (
-      <MenuItem key={profile} color="inherit" onClick={() => { router.push(`/admin/${profile}`); }}>{profile}</MenuItem>
-    ))}
-    <Divider />
-    <MenuItem color="inherit" onClick={() => { setAddProfileDialogOpened(true);}}>Add</MenuItem>
-  </Menu>
-  <Menu
-    id={userMenuId}
-    anchorEl={userAnchorEl}
-    open={isUserMenuOpen}
-    onClose={handleUserMenuClose}
-  >
-    <MenuItem color="inherit" onClick={signout}>Logout</MenuItem>
-  </Menu>
-  <AddProfileDialog
-    open={addProfileDialogOpened}
-    onClose={() => {
-      setAddProfileDialogOpened(false);
-    }}
-  />
-  <AddWidgetDialog
-    profile={currentProfile}
-    open={addWidgetDialogOpened}
-    onClose={() => {
-      setAddWidgetDialogOpened(false);
-    }}
-  />
-
-<Container className={classes.content}>
-  <Box my={4}>
-    <Widgets profile={currentProfile} />
-  </Box>
-</Container>
-      </div>
-    </AuthProvider>
-  ) : (
-    <Signin />
-  )}
-</>)
-;
+                    {currentProfile}
+                  </Typography>
+                  <Box sx={{ flexGrow: 1 }} />
+                  <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                    <IconButton
+                      size="large"
+                      color="inherit"
+                      edge="end"
+                      aria-controls={profileMenuId}
+                      aria-haspopup="true"
+                      aria-expanded={isProfileMenuOpen ? 'true' : undefined}
+                      onClick={handleProfileMenuOpen}
+                    >
+                      <WidgetsIcon />
+                    </IconButton>
+                    <IconButton
+                      size="large"
+                      color="inherit"
+                      onClick={()=>{setAddWidgetDialogOpened(true);}}
+                    >
+                      <AddIcon />
+                    </IconButton>
+                    <IconButton
+                      size="large"
+                      color="inherit"
+                      edge="end"
+                      aria-controls={userMenuId}
+                      aria-haspopup="true"
+                      aria-expanded={isUserMenuOpen ? 'true' : undefined}
+                      onClick={handleUserMenuOpen}
+                    >
+                      <AccountCircleIcon />
+                    </IconButton>
+                  </Box>
+                </Toolbar>
+              </AppBar>
+              <Menu
+                id={profileMenuId}
+                anchorEl={profileAnchorEl}
+                open={isProfileMenuOpen}
+                onClose={handleProfileMenuClose}
+              >
+                {profiles.map((profile) => (
+                  <MenuItem key={profile} color="inherit" onClick={() => { router.push(`/admin/${profile}`); }}>{profile}</MenuItem>
+                ))}
+                <Divider />
+                <MenuItem color="inherit" onClick={() => { setAddProfileDialogOpened(true);}}>Add</MenuItem>
+              </Menu>
+              <Menu
+                id={userMenuId}
+                anchorEl={userAnchorEl}
+                open={isUserMenuOpen}
+                onClose={handleUserMenuClose}
+              >
+                <MenuItem color="inherit" onClick={signout}>Logout</MenuItem>
+              </Menu>
+              <AddProfileDialog
+                open={addProfileDialogOpened}
+                onClose={() => {
+                  setAddProfileDialogOpened(false);
+                }}
+              />
+              <AddWidgetDialog
+                profile={currentProfile}
+                open={addWidgetDialogOpened}
+                onClose={() => {
+                  setAddWidgetDialogOpened(false);
+                }}
+              />
+              <Container className={classes.content}>
+                <Box my={4}>
+                  <Widgets profile={currentProfile} />
+                </Box>
+              </Container>
+            </div>
+          </AuthProvider>
+        ) : (
+          <Signin />
+        )
+      }
+    </>
+  );
 };
 
 export default AdminIndexPage;

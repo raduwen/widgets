@@ -1,10 +1,8 @@
 import { useEffect, useState, MouseEvent } from 'react';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import styled from 'styled-components';
 import {
   CssBaseline,
-  Container,
   Box,
   AppBar,
   Toolbar,
@@ -12,36 +10,17 @@ import {
   MenuItem,
   Divider,
   Typography,
-  Button,
   IconButton,
-  FormControl,
-  InputLabel,
-  TextField,
-  Select,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles'
-import AddIcon from '@mui/icons-material/Add';
 import WidgetsIcon from '@mui/icons-material/Widgets';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { User } from '@firebase/auth';
-import { ref, set, onValue, DataSnapshot } from '@firebase/database';
-
+import { ref, onValue, DataSnapshot } from '@firebase/database';
 import { AuthProvider } from '@/lib/AuthProvider';
 import { auth, db } from '@/lib/firebase';
 import { Signin } from '@/components/admin/signin';
-import { TextWidgetEditor } from '@/components/TextWidget';
-import { TimeWidgetEditor } from '@/components/TimeWidget';
-import { IFrameWidgetEditor } from '@/components/IFrameWidget';
-
-const Editors = {
-  text: TextWidgetEditor,
-  time: TimeWidgetEditor,
-  iframe: IFrameWidgetEditor,
-};
+import { AddProfileDialog } from '@/components/admin/Dialog';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -62,30 +41,6 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1
   },
 }));
-
-const AddProfileDialog = ({ open, onClose }: { open: boolean, onClose: () => void}) => {
-  const [profileId, setProfileId] = useState("");
-
-  return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Add Profile</DialogTitle>
-      <DialogContent>
-        <FormControl variant="standard">
-          <TextField required autoFocus fullWidth label="ID" value={profileId} variant="standard" onChange={(e) => { setProfileId(e.target.value); }} />
-        </FormControl>
-      </DialogContent>
-      <DialogActions>
-        <Button color="primary" variant="contained" onClick={() =>{
-          if (profileId.length > 0) {
-            set(ref(db, `/profiles/${profileId}/name`), profileId);
-            setProfileId("");
-            onClose();
-          }
-        }}>Add</Button>
-      </DialogActions>
-    </Dialog>
-  );
-};
 
 const AdminIndexPage = () => {
   const classes = useStyles();
@@ -212,7 +167,7 @@ const AdminIndexPage = () => {
           </AuthProvider>
         ) : (
           <Signin />
-          )
+        )
       }
     </>
   );
