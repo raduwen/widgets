@@ -32,7 +32,6 @@ const FormGroup = styled.div`
 class TimeWidgetEditor extends Component<Props, TimeWidgetProps> {
   constructor(props: Props) {
     super(props);
-    console.log(props);
     this.state = this.props.props;
     this.save = this.save.bind(this);
     this.delete = this.delete.bind(this);

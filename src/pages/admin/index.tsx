@@ -8,6 +8,7 @@ import {
   Toolbar,
   Menu,
   MenuItem,
+  Divider,
   Typography,
   Button,
   IconButton,
@@ -15,15 +16,14 @@ import {
   InputLabel,
   TextField,
   Select,
-  Backdrop,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-  Fade,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles'
 import AddIcon from '@mui/icons-material/Add';
+import WidgetsIcon from '@mui/icons-material/Widgets';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { User } from '@firebase/auth';
 import { ref, set, onValue, DataSnapshot } from '@firebase/database';
@@ -56,6 +56,9 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
   },
+  profile: {
+    flexGrow: 1
+  },
 }));
 
 type Widget = {
@@ -65,18 +68,15 @@ type Widget = {
 
 type WidgetList = { [key: string]: Widget }
 
-const Widgets = () => {
+const Widgets = ({ profile }: { profile: string }) => {
   const [widgets, setWidgets] = useState<WidgetList>({});
-  const profile = 'default';
 
   useEffect(() => {
     const widgetsRef = ref(db, `/profiles/${profile}/widgets`);
     onValue(widgetsRef, (snap: DataSnapshot) => {
-      if (snap?.val()) {
-        setWidgets(snap.val());
-      }
+      setWidgets(snap.val() || {});
     });
-  }, []);
+  }, [profile]);
 
   return (
     <div>
@@ -91,8 +91,7 @@ const Widgets = () => {
   );
 };
 
-const AddWidgetModel = ({ open, onClose }: { open: boolean, onClose: () => void }) => {
-  const profile = 'default';
+const AddWidgetDialog = ({ profile, open, onClose }: { profile: string, open: boolean, onClose: () => void }) => {
   const [widgetId, setWidgetId] = useState("");
   const [widgetType, setWidgetType] = useState("text");
 
@@ -158,6 +157,34 @@ const AddWidgetModel = ({ open, onClose }: { open: boolean, onClose: () => void 
             name: widgetType,
             props: Editors[widgetType].defaultProps
           });
+
+          setWidgetId("");
+          setWidgetType("text");
+          onClose();
+        }}>Add</Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
+
+const AddProfileDialog = ({ open, onClose }: { open: boolean, onClose: () => void}) => {
+  const [profileId, setProfileId] = useState("");
+
+  return (
+    <Dialog open={open} onClose={onClose}>
+      <DialogTitle>Add Profile</DialogTitle>
+      <DialogContent>
+        <FormControl variant="standard">
+          <TextField required autoFocus fullWidth label="ID" value={profileId} variant="standard" onChange={(e) => { setProfileId(e.target.value); }} />
+        </FormControl>
+      </DialogContent>
+      <DialogActions>
+        <Button color="primary" variant="contained" onClick={() =>{
+          if (profileId.length > 0) {
+            set(ref(db, `/profiles/${profileId}/name`), profileId);
+            setProfileId("");
+            onClose();
+          }
         }}>Add</Button>
       </DialogActions>
     </Dialog>
@@ -167,9 +194,15 @@ const AddWidgetModel = ({ open, onClose }: { open: boolean, onClose: () => void 
 const AdminIndexPage = () => {
   const classes = useStyles();
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const [addWidgetModalOpened, setAddWidgetModalOpened] = useState(false);
-  const isUserMenuOpen = Boolean(anchorEl);
+  const [userAnchorEl, setUserAnchorEl] = useState<HTMLElement | null>(null);
+  const [profileAnchorEl, setProfileAnchorEl] = useState<HTMLElement | null>(null);
+  const [addProfileDialogOpened, setAddProfileDialogOpened] = useState(false);
+  const [addWidgetDialogOpened, setAddWidgetDialogOpened] = useState(false);
+  const [currentProfile, setCurrentProfile] = useState('default');
+  const [profiles, setProfiles] = useState<string[]>([]);
+
+  const isUserMenuOpen = Boolean(userAnchorEl);
+  const isProfileMenuOpen = Boolean(profileAnchorEl);
 
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
@@ -177,8 +210,18 @@ const AdminIndexPage = () => {
     });
   });
 
+  useEffect(() => {
+    const profilesRef = ref(db, `/profiles`);
+    onValue(profilesRef, (snap: DataSnapshot) => {
+      if (snap?.val()) {
+        setProfiles(Object.keys(snap.val()));
+      }
+    });
+  }, []);
+
   const signout = async () => {
-    setAnchorEl(null);
+    setUserAnchorEl(null);
+    setProfileAnchorEl(null);
     try {
       await auth.signOut();
     } catch (err) {
@@ -188,10 +231,18 @@ const AdminIndexPage = () => {
 
   const userMenuId = 'user-menu';
   const handleUserMenuOpen = (event: MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
+    setUserAnchorEl(event.currentTarget);
   };
   const handleUserMenuClose = () => {
-    setAnchorEl(null);
+    setUserAnchorEl(null);
+  };
+
+  const profileMenuId = 'profile-menu';
+  const handleProfileMenuOpen = (event: MouseEvent<HTMLElement>) => {
+    setProfileAnchorEl(event.currentTarget);
+  };
+  const handleProfileMenuClose = () => {
+    setProfileAnchorEl(null);
   };
 
   return currentUser !== null ? (
@@ -203,12 +254,27 @@ const AdminIndexPage = () => {
             <Typography variant="h6" className={classes.title}>
               Admin
             </Typography>
+            <Typography variant="h6" className={classes.title}>
+              Profile:{' '}
+              {currentProfile}
+            </Typography>
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
               <IconButton
                 size="large"
                 color="inherit"
-                onClick={()=>{setAddWidgetModalOpened(true);}}
+                edge="end"
+                aria-controls={profileMenuId}
+                aria-haspopup="true"
+                aria-expanded={isProfileMenuOpen ? 'true' : undefined}
+                onClick={handleProfileMenuOpen}
+               >
+                <WidgetsIcon />
+              </IconButton>
+              <IconButton
+                size="large"
+                color="inherit"
+                onClick={()=>{setAddWidgetDialogOpened(true);}}
               >
                 <AddIcon />
               </IconButton>
@@ -218,6 +284,7 @@ const AdminIndexPage = () => {
                 edge="end"
                 aria-controls={userMenuId}
                 aria-haspopup="true"
+                aria-expanded={isUserMenuOpen ? 'true' : undefined}
                 onClick={handleUserMenuOpen}
                >
                 <AccountCircleIcon />
@@ -226,23 +293,42 @@ const AdminIndexPage = () => {
           </Toolbar>
         </AppBar>
         <Menu
+          id={profileMenuId}
+          anchorEl={profileAnchorEl}
+          open={isProfileMenuOpen}
+          onClose={handleProfileMenuClose}
+        >
+          {profiles.map((profile) => (
+            <MenuItem key={profile} color="inherit" onClick={() => { setCurrentProfile(profile); }}>{profile}</MenuItem>
+          ))}
+          <Divider />
+          <MenuItem color="inherit" onClick={() => { setAddProfileDialogOpened(true);}}>Add</MenuItem>
+        </Menu>
+        <Menu
           id={userMenuId}
-          anchorEl={anchorEl}
+          anchorEl={userAnchorEl}
           open={isUserMenuOpen}
           onClose={handleUserMenuClose}
         >
           <MenuItem color="inherit" onClick={signout}>Logout</MenuItem>
         </Menu>
-        <AddWidgetModel
-          open={addWidgetModalOpened}
+        <AddProfileDialog
+          open={addProfileDialogOpened}
           onClose={() => {
-            setAddWidgetModalOpened(false);
+            setAddProfileDialogOpened(false);
+          }}
+        />
+        <AddWidgetDialog
+          profile={currentProfile}
+          open={addWidgetDialogOpened}
+          onClose={() => {
+            setAddWidgetDialogOpened(false);
           }}
         />
 
         <Container className={classes.content}>
           <Box my={4}>
-            <Widgets />
+            <Widgets profile={currentProfile} />
           </Box>
         </Container>
       </div>
