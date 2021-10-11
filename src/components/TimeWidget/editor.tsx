@@ -7,14 +7,13 @@ import {
   FormControlLabel,
   Checkbox,
 } from '@mui/material';
-import { ref, set } from '@firebase/database';
+import { ref, set, onValue } from '@firebase/database';
 import { db } from '@/lib/firebase';
 import type { TimeWidgetProps } from './types';
 
 type Props = {
   profile: string;
   id: string;
-  props: TimeWidgetProps;
 };
 
 const FormGroup = styled.div`
@@ -32,7 +31,7 @@ const FormGroup = styled.div`
 class TimeWidgetEditor extends Component<Props, TimeWidgetProps> {
   constructor(props: Props) {
     super(props);
-    this.state = this.props.props;
+    this.state = TimeWidgetEditor.defaultProps;
     this.save = this.save.bind(this);
     this.delete = this.delete.bind(this);
   }
@@ -47,6 +46,12 @@ class TimeWidgetEditor extends Component<Props, TimeWidgetProps> {
     if (confirm('本当に削除してよろしいですか?')) {
       set(ref(db, `/profiles/${this.props.profile}/widgets/${this.props.id}`), null);
     }
+  }
+
+  componentDidMount() {
+    onValue(ref(db, `/profiles/${this.props.profile}/widgets/${this.props.id}/props`), (snap) => {
+      this.setState(snap.val());
+    });
   }
 
   render() {

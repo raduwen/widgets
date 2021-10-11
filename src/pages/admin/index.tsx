@@ -93,7 +93,6 @@ const AdminIndexPage = () => {
   const [userAnchorEl, setUserAnchorEl] = useState<HTMLElement | null>(null);
   const [profileAnchorEl, setProfileAnchorEl] = useState<HTMLElement | null>(null);
   const [addProfileDialogOpened, setAddProfileDialogOpened] = useState(false);
-  const [currentProfile, setCurrentProfile] = useState('default');
   const [profiles, setProfiles] = useState<string[]>([]);
 
   const isUserMenuOpen = Boolean(userAnchorEl);
@@ -148,10 +147,6 @@ const AdminIndexPage = () => {
           <Toolbar>
             <Typography variant="h6" className={classes.title}>
               Admin
-            </Typography>
-            <Typography variant="h6" className={classes.title}>
-              Profile:{' '}
-              {currentProfile}
             </Typography>
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
