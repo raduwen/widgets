@@ -1,0 +1,16 @@
+---
+name: Sync lables
+on:
+  push:
+    paths:
+      - .github/workflows/sync_labels.yml
+      - .github/labels.yml
+jobs:
+  sync_labels:
+    name: Sync Labels
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: b4b4r07/github-labeler@v0.2.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

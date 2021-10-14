@@ -1,0 +1,50 @@
+---
+labels:
+  - name: feat
+    description: 新機能
+    color: "A2EEEF"
+  - name: fix
+    description: バグ修正
+    color: "D73A4A"
+  - name: docs
+    description: ドキュメントのみの変更
+    color: "0075CA"
+  - name: style
+    description: フォーマットの変更
+    color: "7057ff"
+  - name: refactor
+    description: リファクタリングのための変更
+    color: "0E8A16"
+  - name: perf
+    description: パフォーマンスの改善のための変更
+    color: "E4E669"
+  - name: test
+    description: 不足テストの追加や既存テストの修正
+    color: "E99695"
+  - name: build
+    description: ビルドシステムや外部依存に関する変更
+    color: "006b75"
+  - name: ci
+    description: CI用の設定やスクリプト関する変更
+    color: "000000"
+  - name: chore
+    description: その他の変更
+    color: "DDDDDD"
+  - name: revert
+    description: 以前のコミットに復帰
+    color: "FBCA04"
+
+repos:
+  - name: raduwen/widgets
+    labels:
+      - feat
+      - fix
+      - docs
+      - style
+      - refactor
+      - perf
+      - test
+      - build
+      - ci
+      - chore
+      - revert
