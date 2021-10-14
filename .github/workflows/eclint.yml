@@ -1,7 +1,9 @@
 ---
 name: eclint
+
 on:
   pull_request:
+
 jobs:
   eclint:
     name: reviewdog / eclint
