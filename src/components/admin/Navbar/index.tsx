@@ -10,7 +10,6 @@ import {
   Typography,
   IconButton,
 } from '@mui/material';
-import { makeStyles } from '@mui/styles'
 import AddIcon from '@mui/icons-material/Add';
 import WidgetsIcon from '@mui/icons-material/Widgets';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -19,18 +18,11 @@ import { ref, onValue, DataSnapshot } from '@firebase/database';
 import { auth, db } from '@/lib/firebase';
 import { AddProfileDialog, AddWidgetDialog } from '@/components/admin/Dialog';
 
-const useStyles = makeStyles((_) => ({
-  title: {
-    flexGrow: 1,
-  },
-}));
-
 type NavbarProps = {
   profile?: string;
 }
 
 const Navbar = ({ profile }: NavbarProps) => {
-  const classes = useStyles();
   const router = useRouter();
 
   const [userAnchorEl, setUserAnchorEl] = useState<HTMLElement | null>(null);
@@ -79,10 +71,10 @@ const Navbar = ({ profile }: NavbarProps) => {
     <>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant="h6" sx={{ flexGrow: 1 }}>
             Admin
           </Typography>
-          {profile && (<Typography variant="h6" className={classes.title}>
+          {profile && (<Typography variant="h6" sx={{ flexGrow: 1 }}>
             Profile:{' '}
             {profile}
           </Typography>)}
