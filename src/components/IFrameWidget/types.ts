@@ -12,6 +12,7 @@ type IFrameWidgetProps = {
   width: number;
   height: number;
   position?: Position;
+  zIndex: number;
 }
 
 export type { Position, IFrameWidgetProps };

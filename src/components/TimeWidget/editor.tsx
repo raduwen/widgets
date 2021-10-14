@@ -74,6 +74,18 @@ class TimeWidgetEditor extends Component<Props, TimeWidgetProps> {
             />
           </FormGroup>
           <FormGroup>
+            <TextField
+              type="number"
+              label="z-index"
+              fullWidth
+              variant="outlined"
+              onChange={(e) => {
+                this.setState({ ...this.state, zIndex: parseInt(e.target.value) });
+              }}
+              value={this.state.zIndex}
+            />
+          </FormGroup>
+          <FormGroup>
             <FormControlLabel
               control={
                 <Checkbox
@@ -116,6 +128,7 @@ class TimeWidgetEditor extends Component<Props, TimeWidgetProps> {
   public static defaultProps: TimeWidgetProps = {
     size: 24,
     hidden: false,
+    zIndex: 0,
   };
 }
 

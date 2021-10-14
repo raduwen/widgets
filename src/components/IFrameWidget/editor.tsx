@@ -195,6 +195,18 @@ class IFrameWidgetEditor extends Component<Props, IFrameWidgetProps> {
               value={this.state.position?.left}
             />
           </FormGroup>
+          <FormGroup>
+            <TextField
+              type="number"
+              label="z-index"
+              fullWidth
+              variant="outlined"
+              onChange={(e) => {
+                this.setState({ ...this.state, zIndex: parseInt(e.target.value) });
+              }}
+              value={this.state.zIndex}
+            />
+          </FormGroup>
         </>
 
         <FormGroup>
@@ -226,6 +238,7 @@ class IFrameWidgetEditor extends Component<Props, IFrameWidgetProps> {
     retry_count: 3,
     width: 640,
     height: 480,
+    zIndex: 0,
   };
 }
 

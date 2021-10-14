@@ -315,6 +315,18 @@ class TextWidgetEditor extends Component<Props, TextWidgetProps> {
             />
           </FormGroup>
           <FormGroup>
+            <TextField
+              type="number"
+              label="z-index"
+              fullWidth
+              variant="outlined"
+              onChange={(e) => {
+                this.setState({ ...this.state, zIndex: parseInt(e.target.value) });
+              }}
+              value={this.state.zIndex}
+            />
+          </FormGroup>
+          <FormGroup>
             <FormControlLabel
               control={
                 <Checkbox
@@ -371,6 +383,7 @@ class TextWidgetEditor extends Component<Props, TextWidgetProps> {
     text: "",
     hidden: false,
     autoHidden: true,
+    zIndex: 0,
   }
 }
 

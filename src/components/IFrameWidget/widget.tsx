@@ -2,7 +2,7 @@ import React, { VFC, useState, CSSProperties } from 'react';
 import styled from 'styled-components';
 import type { IFrameWidgetProps } from './types';
 
-const IFrameWidget: VFC<IFrameWidgetProps> = ({ url, retry_time, retry_count, width, height, position }) => {
+const IFrameWidget: VFC<IFrameWidgetProps> = ({ url, retry_time, retry_count, width, height, position, zIndex }) => {
   const [count, setCount] = useState(0);
 
   const handleLoaded = () => {
@@ -20,6 +20,7 @@ const IFrameWidget: VFC<IFrameWidgetProps> = ({ url, retry_time, retry_count, wi
 
   const style: CSSProperties = {
     position: 'absolute',
+    zIndex,
   };
 
   if (position?.top !== undefined) style.top = position.top;

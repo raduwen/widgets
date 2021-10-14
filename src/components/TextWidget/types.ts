@@ -21,6 +21,7 @@ type TextWidgetProps = {
   position?: Position;
   hidden: boolean;
   autoHidden: boolean;
+  zIndex: number;
 };
 
 export type { Position, TextWidgetProps };
