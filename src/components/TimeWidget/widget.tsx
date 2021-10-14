@@ -16,7 +16,7 @@ class TimeWidget extends React.Component<TimeWidgetProps, TimeWidgetState> {
   }
 
   render() {
-    const { size } = this.props
+    const { size, zIndex } = this.props
 
     const style: CSSProperties = {
       display: this.props.hidden ? 'none' : 'flex',
@@ -34,6 +34,7 @@ class TimeWidget extends React.Component<TimeWidgetProps, TimeWidgetState> {
       transform: `translate(${size*1.25}px, ${size*2.4}px) rotate(-20deg)`,
       fontSize: `${size}px`,
       fontWeight: 'bold',
+      zIndex: zIndex,
     }
 
     return (
