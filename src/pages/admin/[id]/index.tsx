@@ -6,7 +6,6 @@ import {
   Container,
   Box,
 } from '@mui/material';
-import { makeStyles } from '@mui/styles'
 import { User } from '@firebase/auth';
 import { ref, onValue, DataSnapshot } from '@firebase/database';
 import { AuthProvider } from '@/lib/AuthProvider';
@@ -22,20 +21,6 @@ const Editors = {
   time: TimeWidgetEditor,
   iframe: IFrameWidgetEditor,
 };
-
-const useStyles = makeStyles((_) => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '100%',
-    height: '100vh',
-    overflow: 'hidden',
-  },
-  content: {
-    flex: 1,
-    overflow: 'auto',
-  },
-}));
 
 type Widget = {
   name: string;
@@ -67,7 +52,6 @@ const Widgets = ({ profile }: { profile: string }) => {
 };
 
 const AdminIndexPage = () => {
-  const classes = useStyles();
   const router = useRouter();
   const [currentUser, setCurrentUser] = useState<User | null>(null);
 
@@ -88,14 +72,20 @@ const AdminIndexPage = () => {
         currentUser !== null ? (
           <AuthProvider>
             <CssBaseline />
-            <div className={classes.root}>
+            <Box sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              width: '100%',
+              height: '100vh',
+              overflow: 'hidden',
+            }}>
               <Navbar profile={currentProfile} />
-              <Container className={classes.content}>
+              <Container sx={{ flex: 1, overflow: 'auto' }}>
                 <Box my={4}>
                   <Widgets profile={currentProfile} />
                 </Box>
               </Container>
-            </div>
+            </Box>
           </AuthProvider>
         ) : (
           <Signin />
