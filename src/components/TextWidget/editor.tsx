@@ -172,13 +172,23 @@ class TextWidgetEditor extends Component<Props, TextWidgetProps> {
             />
             <TextField
               type="text"
-              label="text align"
+              label="text horizontal align"
               fullWidth
               variant="outlined"
               onChange={(e) => {
-                this.setState({ ...this.state, textAlign: e.target.value as Property.TextAlign });
+                this.setState({ ...this.state, textAlign: e.target.value as Property.JustifyContent });
               }}
               value={this.state.textAlign}
+            />
+            <TextField
+              type="text"
+              label="text vertical align"
+              fullWidth
+              variant="outlined"
+              onChange={(e) => {
+                this.setState({ ...this.state, verticalAlign: e.target.value as Property.AlignItems });
+              }}
+              value={this.state.verticalAlign}
             />
           </FormGroup>
           <FormGroup>

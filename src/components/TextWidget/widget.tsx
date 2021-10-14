@@ -16,13 +16,15 @@ const calcTextShadow = (weight, color) => {
 };
 
 const defaultStyle: CSSProperties = {
+  display: 'flex',
   boxSizing: 'border-box',
   whiteSpace: 'pre-wrap',
   overflow: 'hidden',
   color: '#ffffff',
   backgroundColor: 'rgba(0,0,0,0.1)',
   textShadow: calcTextShadow(1, '#000000'),
-  textAlign: 'left',
+  textAlign: 'start',
+  verticalAlign: 'start',
   width: 320,
   height: 540,
   padding: '0.25rem 0.5rem',
@@ -34,6 +36,7 @@ const TextWidget: VFC<TextWidgetProps> = ({
   textColor,
   fontSize,
   textAlign,
+  verticalAlign,
   backgroundColor,
   edgeWeight,
   edgeColor,
@@ -55,9 +58,10 @@ const TextWidget: VFC<TextWidgetProps> = ({
     color: textColor || '#ffffff',
     fontSize: fontSize || '1rem',
     textShadow: edge,
-    textAlign: textAlign || 'left',
+    justifyContent: textAlign || 'start',
+    alignItems: verticalAlign || 'start',
     backgroundColor: backgroundColor || 'rgba(0,0,0,0.1)',
-    display: hidden || autoHidden && text.length === 0 ? 'none' : 'block',
+    display: hidden || autoHidden && text.length === 0 ? 'none' : 'flex',
     zIndex,
   };
 

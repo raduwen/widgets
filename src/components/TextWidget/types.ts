@@ -11,7 +11,8 @@ type TextWidgetProps = {
   text: string;
   textColor?: string;
   fontSize?: string;
-  textAlign?: Property.TextAlign;
+  textAlign?: Property.JustifyContent;
+  verticalAlign?: Property.AlignItems;
   backgroundColor?: string;
   edgeWeight?: number; // px
   edgeColor?: string;
