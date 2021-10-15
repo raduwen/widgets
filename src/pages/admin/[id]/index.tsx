@@ -36,15 +36,15 @@ const AdminIndexPage = () => {
         currentUser !== null ? (
           <AuthProvider>
             <CssBaseline />
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                width: '100%',
-                height: '100vh',
-                overflow: 'hidden',
-              }}
-            >
+            <Toolbar/>
+            <Box sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              width: '100%',
+              height: '100vh',
+              overflow: 'hidden',
+              overflowY: 'scroll',
+            }}>
               <Navbar profile={currentProfile} />
               <Box
                 sx={{
