@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import {
   CssBaseline,
   Container,
-  Toolbar,
   Box,
 } from '@mui/material';
 import { User } from '@firebase/auth';
@@ -36,7 +35,6 @@ const AdminIndexPage = () => {
         currentUser !== null ? (
           <AuthProvider>
             <CssBaseline />
-            <Toolbar/>
             <Box sx={{
               display: 'flex',
               flexDirection: 'column',
