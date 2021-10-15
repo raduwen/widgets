@@ -58,7 +58,7 @@ class TimeWidgetEditor extends Component<Props, TimeWidgetProps> {
     return (
       <div>
         <>
-          <Typography variant="h6">
+          <Typography variant="h6" id={this.props.id}>
             TimeWidget : {this.props.id}
           </Typography>
           <FormGroup>

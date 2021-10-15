@@ -113,7 +113,7 @@ class TextWidgetEditor extends Component<Props, TextWidgetProps> {
     return (
       <div>
         <>
-          <Typography variant="h6">
+          <Typography variant="h6" id={this.props.id}>
             TextWidget : {this.props.id}
           </Typography>
           <FormGroup>

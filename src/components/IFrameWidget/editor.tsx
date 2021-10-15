@@ -54,7 +54,7 @@ class IFrameWidgetEditor extends Component<Props, IFrameWidgetProps> {
     return (
       <div>
         <>
-          <Typography variant="h6">
+          <Typography variant="h6" id={this.props.id}>
             IFrameWidget : {this.props.id}
           </Typography>
           <FormGroup>
