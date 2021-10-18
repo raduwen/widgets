@@ -4,24 +4,38 @@ import {
   Toolbar,
   List,
   ListItem,
-  ListItemText,
+  ListItemButton,
   Divider,
 } from '@mui/material';
 import { ref, onValue, DataSnapshot } from '@firebase/database';
 import { db } from '@/lib/firebase';
 
+type Widget = {
+  name: string;
+  id: string;
+};
+
 type LeftSideBarProps = {
   profile: string;
+  selectWidget: ({ id, name }: Widget) => void;
 }
 
-const LeftSideBar = ({ profile }: LeftSideBarProps) => {
-  const [widgets, setWidgets] = useState<string[]>([]);
+const LeftSideBar = ({ profile, selectWidget }: LeftSideBarProps) => {
+  const [widgets, setWidgets] = useState<Widget[]>([]);
 
   useEffect(() => {
     const widgetsRef = ref(db, `/profiles/${profile}/widgets`);
     onValue(widgetsRef, (snap: DataSnapshot) => {
       if (snap?.val()) {
-        setWidgets(Object.keys(snap.val()));
+        const widgets = snap.val();
+        setWidgets(
+          Object.entries(widgets).map((widget: any) => {
+            return {
+              name: widget[1].name,
+              id: widget[0],
+            };
+          })
+        );
       }
     });
   }, [profile]);
@@ -45,10 +59,10 @@ const LeftSideBar = ({ profile }: LeftSideBarProps) => {
       <Divider />
       <List>
         {widgets.map((widget) => (
-          <ListItem key={widget}>
-            <ListItemText>
-              <a href={`#${widget}`}>{widget}</a>
-            </ListItemText>
+          <ListItem key={widget.id}>
+            <ListItemButton onClick={() => { selectWidget(widget); }}>
+              {widget.id}
+            </ListItemButton>
           </ListItem>
         ))}
       </List>
