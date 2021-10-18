@@ -8,15 +8,29 @@ import {
 } from '@mui/material';
 import { User } from '@firebase/auth';
 import { AuthProvider } from '@/lib/AuthProvider';
-import { auth } from '@/lib/firebase';
+import { auth, db } from '@/lib/firebase';
 import { Signin } from '@/components/admin/signin';
 import { Navbar } from '@/components/admin/Navbar';
 import { LeftSideBar } from '@/components/admin/LeftSideNav';
-import { Editors } from '@/components/admin/Editors';
+import { TextWidgetEditor } from '@/components/TextWidget';
+import { TimeWidgetEditor } from '@/components/TimeWidget';
+import { IFrameWidgetEditor } from '@/components/IFrameWidget';
+
+const EditorMap = {
+  text: TextWidgetEditor,
+  time: TimeWidgetEditor,
+  iframe: IFrameWidgetEditor,
+};
+
+type Widget = {
+  name: string;
+  id: string;
+}
 
 const AdminIndexPage = () => {
   const router = useRouter();
   const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [currentWidget, setCurrentWidget] = useState<Widget | null>(null);
 
   const currentProfile = router.query.id as string;
 
@@ -24,7 +38,9 @@ const AdminIndexPage = () => {
     auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
     });
-  });
+  }, []);
+
+  const Editor = currentWidget ? EditorMap[currentWidget.name] : null;
 
   return (
     <>
@@ -50,10 +66,15 @@ const AdminIndexPage = () => {
                   flexDirection: 'row',
                 }}
               >
-                <LeftSideBar profile={currentProfile} />
+                <LeftSideBar
+                  profile={currentProfile}
+                  selectWidget={(widget) => {
+                    setCurrentWidget(widget);
+                  }}
+                />
                 <Box component="main">
                   <Container sx={{ pt: 4, flex: 1, overflow: 'auto' }}>
-                    <Editors profile={currentProfile} />
+                    {currentWidget && <Editor id={currentWidget.id} profile={currentProfile} />}
                   </Container>
                 </Box>
               </Box>
