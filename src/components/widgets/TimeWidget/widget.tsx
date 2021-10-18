@@ -1,11 +1,11 @@
-import React, { CSSProperties } from 'react';
+import { Component, CSSProperties } from 'react';
 import type { TimeWidgetProps } from './types';
 
 interface TimeWidgetState {
   time: Date;
 };
 
-class TimeWidget extends React.Component<TimeWidgetProps, TimeWidgetState> {
+class TimeWidget extends Component<TimeWidgetProps, TimeWidgetState> {
   interval: NodeJS.Timer | null;
 
   constructor(props: TimeWidgetProps) {

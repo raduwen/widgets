@@ -1,4 +1,4 @@
-import React, { VFC, CSSProperties } from 'react';
+import { VFC, CSSProperties } from 'react';
 import type { TextWidgetProps } from './types';
 
 const calcTextShadow = (weight, color) => {
