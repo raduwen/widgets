@@ -69,7 +69,7 @@ const Navbar = ({ profile }: NavbarProps) => {
 
   return (
     <>
-      <AppBar position="static">
+      <AppBar>
         <Toolbar>
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             Admin
@@ -145,6 +145,7 @@ const Navbar = ({ profile }: NavbarProps) => {
           setAddWidgetDialogOpened(false);
         }}
       />)}
+      <Box m={2} pt={3} />
     </>
   );
 };
