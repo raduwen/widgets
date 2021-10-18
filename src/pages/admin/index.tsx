@@ -7,9 +7,7 @@ import {
   Box,
   Typography,
   Stack,
-  Paper,
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import { User } from '@firebase/auth';
 import { ref, onValue, DataSnapshot } from '@firebase/database';
 import { AuthProvider } from '@/lib/AuthProvider';

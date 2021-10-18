@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import { User } from '@firebase/auth';
 import { AuthProvider } from '@/lib/AuthProvider';
-import { auth, db } from '@/lib/firebase';
+import { auth } from '@/lib/firebase';
 import { Signin } from '@/components/admin/signin';
 import { Navbar } from '@/components/admin/Navbar';
 import { LeftSideBar } from '@/components/admin/LeftSideNav';
