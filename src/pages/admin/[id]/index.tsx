@@ -12,15 +12,7 @@ import { auth, db } from '@/lib/firebase';
 import { Signin } from '@/components/admin/signin';
 import { Navbar } from '@/components/admin/Navbar';
 import { LeftSideBar } from '@/components/admin/LeftSideNav';
-import { TextWidgetEditor } from '@/components/TextWidget';
-import { TimeWidgetEditor } from '@/components/TimeWidget';
-import { IFrameWidgetEditor } from '@/components/IFrameWidget';
-
-const EditorMap = {
-  text: TextWidgetEditor,
-  time: TimeWidgetEditor,
-  iframe: IFrameWidgetEditor,
-};
+import { EditorMap } from '@/components/widgets';
 
 type Widget = {
   name: string;
