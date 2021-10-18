@@ -10,7 +10,7 @@ import styled from 'styled-components';
 import { Property } from 'csstype';
 import { ref, set, onValue } from '@firebase/database';
 import { db } from '@/lib/firebase';
-import type { TextWidgetProps } from '@/components/TextWidget/types';
+import type { TextWidgetProps } from './types';
 
 type Props = {
   profile: string;

@@ -1,15 +1,7 @@
 import { useEffect, useState } from 'react';
 import { ref, onValue, DataSnapshot } from '@firebase/database';
 import { db } from '@/lib/firebase';
-import { TextWidgetEditor } from '@/components/TextWidget';
-import { TimeWidgetEditor } from '@/components/TimeWidget';
-import { IFrameWidgetEditor } from '@/components/IFrameWidget';
-
-const EditorMap = {
-  text: TextWidgetEditor,
-  time: TimeWidgetEditor,
-  iframe: IFrameWidgetEditor,
-};
+import { EditorMap } from '@/components/widgets';
 
 type Widget = {
   name: string;

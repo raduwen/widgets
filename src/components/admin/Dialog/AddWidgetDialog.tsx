@@ -14,15 +14,7 @@ import {
 } from '@mui/material';
 import { ref, set, onValue } from '@firebase/database';
 import { db } from '@/lib/firebase';
-import { TextWidgetEditor } from '@/components/TextWidget';
-import { TimeWidgetEditor } from '@/components/TimeWidget';
-import { IFrameWidgetEditor } from '@/components/IFrameWidget';
-
-const Editors = {
-  text: TextWidgetEditor,
-  time: TimeWidgetEditor,
-  iframe: IFrameWidgetEditor,
-};
+import { EditorMap } from '@/components/widgets';
 
 type AddWidgetDialogProps = {
  profile: string;
@@ -94,7 +86,7 @@ const AddWidgetDialog = ({ profile, open, onClose }: AddWidgetDialogProps) => {
         <Button color="primary" variant="contained" onClick={() => {
           set(ref(db, `/profiles/${profile}/widgets/${widgetId}`), {
             name: widgetType,
-            props: Editors[widgetType].defaultProps
+            props: EditorMap[widgetType].defaultProps
           });
 
           setWidgetId("");

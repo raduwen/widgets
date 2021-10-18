@@ -1,5 +1,5 @@
 import React, { VFC, CSSProperties } from 'react';
-import type { TextWidgetProps } from '@/components/TextWidget/types';
+import type { TextWidgetProps } from './types';
 
 const calcTextShadow = (weight, color) => {
   const edge = [
