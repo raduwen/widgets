@@ -50,6 +50,15 @@ class IFrameWidgetEditor extends Component<Props, IFrameWidgetProps> {
     });
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.id == this.props.id)
+      return;
+
+    onValue(ref(db, `/profiles/${this.props.profile}/widgets/${this.props.id}/props`), (snap) => {
+      this.setState(snap.val());
+    });
+  }
+
   render() {
     return (
       <div>
