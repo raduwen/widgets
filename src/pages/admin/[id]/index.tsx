@@ -66,7 +66,7 @@ const AdminIndexPage = () => {
                 />
                 <Box component="main">
                   <Container sx={{ pt: 4, flex: 1, overflow: 'auto' }}>
-                    {currentWidget && <Editor id={currentWidget.id} profile={currentProfile} />}
+                    {currentWidget && Editor && <Editor id={currentWidget.id} profile={currentProfile} />}
                   </Container>
                 </Box>
               </Box>

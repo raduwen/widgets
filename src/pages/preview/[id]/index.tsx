@@ -35,7 +35,10 @@ const Preview = ({ profile }: PreviewProps) => {
         Object.keys(widgets).map((id) => {
           const widget: any = widgets[id];
           const Widget = PreviewMap[widget.name];
-          return <Widget key={id} {...widget.props} />
+          if (Widget)
+            return <Widget key={id} {...widget.props} />;
+          else
+            return null;
         })
       }
     </div>
