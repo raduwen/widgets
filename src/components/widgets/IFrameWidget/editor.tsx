@@ -50,7 +50,7 @@ class IFrameWidgetEditor extends Component<Props, IFrameWidgetProps> {
     });
   }
 
-  componentDidMount(prevProps) {
+  componentDidUpdate(prevProps) {
     if (prevProps.id == this.props.id)
       return;
 
