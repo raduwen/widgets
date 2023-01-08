@@ -1,6 +1,6 @@
 import { getAuth } from 'firebase/auth';
 import { getDatabase } from 'firebase/database';
-import { initializeApp } from 'firebase/app';
+import { getApps, initializeApp } from 'firebase/app';
 
 const config = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -12,8 +12,23 @@ const config = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-const app = initializeApp(config);
-const auth = getAuth(app);
-const db = getDatabase(app);
+const getConfig = () => {
+  return config;
+}
 
-export { app, auth, db };
+const getFirebaseApp = () =>  {
+  if (getApps().length > 0)
+    return getApps()[0];
+  else
+    return initializeApp(getConfig());
+}
+
+const getFirebaseAuth = () => {
+  return getAuth(getFirebaseApp());
+}
+
+const getFirebaseDB = () => {
+  return getDatabase(getFirebaseApp());
+}
+
+export { getFirebaseApp, getFirebaseAuth, getFirebaseDB };

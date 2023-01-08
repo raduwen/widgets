@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useRef } from 'react';
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 import { signInWithEmailAndPassword } from '@firebase/auth';
 import { TextField, Button } from '@mui/material';
-import { auth } from '@/lib/firebase';
+import { getFirebaseAuth } from '@/lib/firebase';
 
 const FormGroup = styled.div`
   display: flex;
@@ -23,13 +23,13 @@ type SignInFormProps = {
 
 const SignInForm = ({ redirectTo }: SignInFormProps) => {
   const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const emailRef= useRef(null);
+  const passwordRef = useRef(null);
 
   const signin = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(getFirebaseAuth(), emailRef.current.value, passwordRef.current.value);
       router.push(redirectTo);
     } catch (err) {
       alert(err.message);
@@ -44,7 +44,7 @@ const SignInForm = ({ redirectTo }: SignInFormProps) => {
           label="Email"
           placeholder="example@example.com"
           fullWidth
-          onChange={(e) => setEmail(e.target.value)}
+          inputRef={emailRef}
         />
       </FormGroup>
       <FormGroup>
@@ -52,7 +52,7 @@ const SignInForm = ({ redirectTo }: SignInFormProps) => {
           type="password"
           label="Password"
           fullWidth
-          onChange={(e) => setPassword(e.target.value)}
+          inputRef={passwordRef}
         />
       </FormGroup>
       <div>

@@ -13,7 +13,7 @@ import {
   MenuItem,
 } from '@mui/material';
 import { ref, set } from '@firebase/database';
-import { db } from '@/lib/firebase';
+import { getFirebaseDB } from '@/lib/firebase';
 import { EditorMap } from '@/components/widgets';
 
 type AddWidgetDialogProps = {
@@ -84,7 +84,7 @@ const AddWidgetDialog = ({ profile, open, onClose }: AddWidgetDialogProps) => {
       </DialogContent>
       <DialogActions>
         <Button color="primary" variant="contained" onClick={() => {
-          set(ref(db, `/profiles/${profile}/widgets/${widgetId}`), {
+          set(ref(getFirebaseDB(), `/profiles/${profile}/widgets/${widgetId}`), {
             name: widgetType,
             props: EditorMap[widgetType].defaultProps
           });
