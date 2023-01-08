@@ -9,7 +9,7 @@ import {
   Button,
 } from '@mui/material';
 import { ref, set } from '@firebase/database';
-import { db } from '@/lib/firebase';
+import { getFirebaseDB } from '@/lib/firebase';
 
 type AddProfileDialogProps = {
   open: boolean;
@@ -30,7 +30,7 @@ const AddProfileDialog = ({ open, onClose }: AddProfileDialogProps) => {
       <DialogActions>
         <Button color="primary" variant="contained" onClick={() =>{
           if (profileId.length > 0) {
-            set(ref(db, `/profiles/${profileId}/name`), profileId);
+            set(ref(getFirebaseDB(), `/profiles/${profileId}/name`), profileId);
             setProfileId("");
             onClose();
           }

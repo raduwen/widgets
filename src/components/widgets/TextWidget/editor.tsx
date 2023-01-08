@@ -9,7 +9,7 @@ import {
 import styled from '@emotion/styled';
 import { Property } from 'csstype';
 import { ref, set, onValue } from '@firebase/database';
-import { db } from '@/lib/firebase';
+import { getFirebaseDB } from '@/lib/firebase';
 import type { TextWidgetProps } from './types';
 
 type Props = {
@@ -93,18 +93,18 @@ class TextWidgetEditor extends Component<Props, TextWidgetProps> {
 
   save(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
-    set(ref(db, `/profiles/${this.props.profile}/widgets/${this.props.id}/props`), this.state);
+    set(ref(getFirebaseDB(), `/profiles/${this.props.profile}/widgets/${this.props.id}/props`), this.state);
   }
 
   delete(e: MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     if (confirm('本当に削除してよろしいですか?')) {
-      set(ref(db, `/profiles/${this.props.profile}/widgets/${this.props.id}`), null);
+      set(ref(getFirebaseDB(), `/profiles/${this.props.profile}/widgets/${this.props.id}`), null);
     }
   }
 
   componentDidMount() {
-    onValue(ref(db, `/profiles/${this.props.profile}/widgets/${this.props.id}/props`), (snap) => {
+    onValue(ref(getFirebaseDB(), `/profiles/${this.props.profile}/widgets/${this.props.id}/props`), (snap) => {
       this.setState(snap.val());
     });
   }
@@ -113,7 +113,7 @@ class TextWidgetEditor extends Component<Props, TextWidgetProps> {
     if (prevProps.id == this.props.id)
       return;
 
-    onValue(ref(db, `/profiles/${this.props.profile}/widgets/${this.props.id}/props`), (snap) => {
+    onValue(ref(getFirebaseDB(), `/profiles/${this.props.profile}/widgets/${this.props.id}/props`), (snap) => {
       this.setState(snap.val());
     });
   }

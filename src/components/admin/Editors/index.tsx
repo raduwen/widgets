@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ref, onValue, DataSnapshot } from '@firebase/database';
-import { db } from '@/lib/firebase';
+import { getFirebaseDB } from '@/lib/firebase';
 import { EditorMap } from '@/components/widgets';
 
 type Widget = {
@@ -17,7 +17,7 @@ const Editors = ({ profile }: EditorsProps) => {
   const [widgets, setWidgets] = useState<WidgetList>({});
 
   useEffect(() => {
-    const widgetsRef = ref(db, `/profiles/${profile}/widgets`);
+    const widgetsRef = ref(getFirebaseDB(), `/profiles/${profile}/widgets`);
     onValue(widgetsRef, (snap: DataSnapshot) => {
       setWidgets(snap.val() || {});
     });

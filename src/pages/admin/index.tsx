@@ -8,25 +8,18 @@ import {
   Typography,
   Stack,
 } from '@mui/material';
-import { User } from '@firebase/auth';
 import { ref, onValue, DataSnapshot } from '@firebase/database';
-import { AuthProvider } from '@/lib/AuthProvider';
-import { auth, db } from '@/lib/firebase';
+import { useAuth } from '@/lib/AuthProvider';
+import { getFirebaseDB } from '@/lib/firebase';
 import { Signin } from '@/components/admin/signin';
 import { Navbar } from '@/components/admin/Navbar';
 
-const AdminIndexPage = () => {
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
+const AdminIndex = () => {
+const { currentUser } = useAuth();
   const [profiles, setProfiles] = useState<string[]>([]);
 
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
-    });
-  });
-
-  useEffect(() => {
-    onValue(ref(db, '/profiles'), (snap: DataSnapshot) => {
+    onValue(ref(getFirebaseDB(), '/profiles'), (snap: DataSnapshot) => {
       setProfiles(Object.keys(snap.val()));
     });
   }, []);
@@ -39,8 +32,8 @@ const AdminIndexPage = () => {
         <title>Admin - Raduwen OBS Widgets</title>
       </Head>
       {
-        currentUser !== null ? (
-          <AuthProvider>
+        currentUser ? (
+          <>
             <CssBaseline />
             <Box sx={{
               display: 'flex',
@@ -65,11 +58,22 @@ const AdminIndexPage = () => {
                 </div>
               </Container>
             </Box>
-          </AuthProvider>
+          </>
         ) : (
-          <Signin />
+            <Signin />
         )
       }
+    </>
+  );
+}
+
+const AdminIndexPage = () => {
+  return (
+    <>
+      <Head>
+        <title>Admin - Raduwen OBS Widgets</title>
+      </Head>
+      <AdminIndex />
     </>
   );
 };

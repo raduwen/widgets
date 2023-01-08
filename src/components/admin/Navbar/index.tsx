@@ -15,7 +15,7 @@ import WidgetsIcon from '@mui/icons-material/Widgets';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { ref, onValue, DataSnapshot } from '@firebase/database';
 
-import { auth, db } from '@/lib/firebase';
+import { getFirebaseAuth, getFirebaseDB } from '@/lib/firebase';
 import { AddProfileDialog, AddWidgetDialog } from '@/components/admin/Dialog';
 
 type NavbarProps = {
@@ -52,14 +52,14 @@ const Navbar = ({ profile }: NavbarProps) => {
 
   const signout = async () => {
     try {
-      await auth.signOut();
+      await getFirebaseAuth().signOut();
     } catch (err) {
       alert(err.message);
     }
   };
 
   useEffect(() => {
-    const profilesRef = ref(db, `/profiles`);
+    const profilesRef = ref(getFirebaseDB(), `/profiles`);
     onValue(profilesRef, (snap: DataSnapshot) => {
       if (snap?.val()) {
         setProfiles(Object.keys(snap.val()));

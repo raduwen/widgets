@@ -6,9 +6,7 @@ import {
   Container,
   Box,
 } from '@mui/material';
-import { User } from '@firebase/auth';
-import { AuthProvider } from '@/lib/AuthProvider';
-import { auth } from '@/lib/firebase';
+import { useAuth } from '@/lib/AuthProvider';
 import { Signin } from '@/components/admin/signin';
 import { Navbar } from '@/components/admin/Navbar';
 import { LeftSideBar } from '@/components/admin/LeftSideNav';
@@ -19,18 +17,12 @@ type Widget = {
   id: string;
 }
 
-const AdminIndexPage = () => {
+const Admin = () => {
   const router = useRouter();
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const { currentUser } = useAuth();
   const [currentWidget, setCurrentWidget] = useState<Widget | null>(null);
 
   const currentProfile = router.query.id as string;
-
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      setCurrentUser(user);
-    });
-  }, []);
 
   const Editor = currentWidget ? EditorMap[currentWidget.name] : null;
 
@@ -40,8 +32,8 @@ const AdminIndexPage = () => {
         <title>{currentProfile} : Admin - Raduwen OBS Widgets</title>
       </Head>
       {
-        currentUser !== null ? (
-          <AuthProvider>
+        currentUser ? (
+          <>
             <CssBaseline />
             <Box sx={{
               display: 'flex',
@@ -71,13 +63,28 @@ const AdminIndexPage = () => {
                 </Box>
               </Box>
             </Box>
-          </AuthProvider>
+          </>
         ) : (
-          <Signin />
-        )
+            <Signin />
+          )
       }
     </>
   );
 };
 
-export default AdminIndexPage;
+const AdminPage = () => {
+  const router = useRouter();
+
+  const currentProfile = router.query.id as string;
+
+  return (
+    <>
+      <Head>
+        <title>{currentProfile} : Admin - Raduwen OBS Widgets</title>
+      </Head>
+      <Admin />
+    </>
+  );
+};
+
+export default AdminPage;

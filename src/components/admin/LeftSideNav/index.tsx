@@ -8,7 +8,7 @@ import {
   Divider,
 } from '@mui/material';
 import { ref, onValue, DataSnapshot } from '@firebase/database';
-import { db } from '@/lib/firebase';
+import { getFirebaseDB } from '@/lib/firebase';
 
 type Widget = {
   name: string;
@@ -24,7 +24,7 @@ const LeftSideBar = ({ profile, selectWidget }: LeftSideBarProps) => {
   const [widgets, setWidgets] = useState<Widget[]>([]);
 
   useEffect(() => {
-    const widgetsRef = ref(db, `/profiles/${profile}/widgets`);
+    const widgetsRef = ref(getFirebaseDB(), `/profiles/${profile}/widgets`);
     onValue(widgetsRef, (snap: DataSnapshot) => {
       if (snap?.val()) {
         const widgets = snap.val();

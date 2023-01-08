@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
 import { signInWithEmailAndPassword } from '@firebase/auth';
 import { TextField, Button } from '@mui/material';
-import { auth } from '@/lib/firebase';
+import { getFirebaseAuth } from '@/lib/firebase';
 
 const FormGroup = styled.div`
   display: flex;
@@ -29,7 +29,7 @@ const SignInForm = ({ redirectTo }: SignInFormProps) => {
   const signin = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, emailRef.current.value, passwordRef.current.value);
+      await signInWithEmailAndPassword(getFirebaseAuth(), emailRef.current.value, passwordRef.current.value);
       router.push(redirectTo);
     } catch (err) {
       alert(err.message);

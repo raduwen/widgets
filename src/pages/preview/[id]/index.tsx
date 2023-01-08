@@ -3,7 +3,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { ref, onValue, DataSnapshot } from '@firebase/database';
 
-import { db } from '@/lib/firebase';
+import { getFirebaseDB } from '@/lib/firebase';
 import { PreviewMap } from '@/components/widgets';
 
 type Widget = {
@@ -21,7 +21,7 @@ const Preview = ({ profile }: PreviewProps) => {
   const [widgets, setWidgets] = useState<WidgetList>({});
 
   useEffect(() => {
-    const widgetsRef = ref(db, `/profiles/${profile}/widgets`);
+    const widgetsRef = ref(getFirebaseDB(), `/profiles/${profile}/widgets`);
     onValue(widgetsRef, (snap: DataSnapshot) => {
       if (snap?.val()) {
         setWidgets(snap.val());

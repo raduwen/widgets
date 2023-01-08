@@ -1,6 +1,6 @@
 import { User, onAuthStateChanged } from '@firebase/auth';
-import { FC, createContext, useEffect, useState } from 'react';
-import { auth } from '@/lib/firebase';
+import { FC, createContext, useContext, useEffect, useState } from 'react';
+import { getFirebaseAuth } from '@/lib/firebase';
 
 type AuthContextProps = {
   currentUser: User | null | undefined;
@@ -12,11 +12,9 @@ const AuthProvider: FC = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<User | null | undefined>(undefined);
 
   useEffect(() => {
-    return () => {
-      onAuthStateChanged(auth, (user) => {
-        setCurrentUser(user);
-      });
-    }
+    onAuthStateChanged(getFirebaseAuth(), (user) => {
+      setCurrentUser(user);
+    });
   }, []);
 
   return (
@@ -26,4 +24,8 @@ const AuthProvider: FC = ({ children }) => {
   );
 };
 
-export { AuthProvider };
+const useAuth = () => {
+  return useContext(AuthContext);
+}
+
+export { AuthProvider, useAuth };
