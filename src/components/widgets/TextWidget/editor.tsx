@@ -6,7 +6,7 @@ import {
   FormControlLabel,
   Checkbox,
 } from '@mui/material';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { Property } from 'csstype';
 import { ref, set, onValue } from '@firebase/database';
 import { db } from '@/lib/firebase';
