@@ -12,10 +12,12 @@ const AuthProvider: FC = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<User | null | undefined>(undefined);
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
-    });
-  });
+    return () => {
+      onAuthStateChanged(auth, (user) => {
+        setCurrentUser(user);
+      });
+    }
+  }, []);
 
   return (
     <AuthContext.Provider value={{ currentUser }}>
