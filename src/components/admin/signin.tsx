@@ -1,5 +1,5 @@
 import { VFC } from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 import { SignInForm } from "@/components/admin/SignInForm";
 

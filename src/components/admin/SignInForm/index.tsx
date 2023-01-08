@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import { signInWithEmailAndPassword } from '@firebase/auth';
 import { TextField, Button } from '@mui/material';
 import { auth } from '@/lib/firebase';

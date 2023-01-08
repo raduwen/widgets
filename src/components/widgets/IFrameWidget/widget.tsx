@@ -1,5 +1,5 @@
 import React, { VFC, useState, CSSProperties } from 'react';
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 import type { IFrameWidgetProps } from './types';
 
 const IFrameWidget: VFC<IFrameWidgetProps> = ({ url, retry_time, retry_count, width, height, position, zIndex }) => {
