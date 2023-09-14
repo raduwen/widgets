@@ -28,7 +28,7 @@
     "@types/react-dom": "^17.0.14",
     "eslint": "8.49.0",
     "eslint-config-next": "13.4.19",
-    "firebase-tools": "^12.5.3",
+    "firebase-tools": "^12.5.4",
     "typescript": "^5.2.2"
   },
   "resolutions": {
