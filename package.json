@@ -19,12 +19,12 @@
     "@mui/styles": "^5.14.19",
     "firebase": "^10.7.0",
     "next": "^12.3.1",
-    "react": "^17.0.2",
+    "react": "^18.2.0",
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@types/node": "^20.4.8",
-    "@types/react": "^17.0.43",
+    "@types/react": "^18.2.41",
     "@types/react-dom": "^17.0.14",
     "eslint": "8.55.0",
     "eslint-config-next": "14.0.3",
