@@ -15,7 +15,7 @@
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.3",
-    "@mui/material": "^5.15.3",
+    "@mui/material": "^5.15.6",
     "@mui/styles": "^5.15.3",
     "firebase": "^10.7.1",
     "next": "^12.3.1",
