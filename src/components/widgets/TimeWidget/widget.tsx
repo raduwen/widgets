@@ -6,7 +6,7 @@ interface TimeWidgetState {
 };
 
 class TimeWidget extends Component<TimeWidgetProps, TimeWidgetState> {
-  interval: NodeJS.Timer | null;
+  interval: number | null;
 
   constructor(props: TimeWidgetProps) {
     super(props)
@@ -26,12 +26,12 @@ class TimeWidget extends Component<TimeWidgetProps, TimeWidgetState> {
       position: 'absolute',
       bottom: 0,
       right: 0,
-      width: `${size*9.5}px`,
-      height: `${size*9.5}px`,
+      width: `${size * 9.5}px`,
+      height: `${size * 9.5}px`,
       borderRadius: '50%',
       color: 'white',
       background: 'rgba(0, 128, 128, 0.75)',
-      transform: `translate(${size*1.25}px, ${size*2.4}px) rotate(-20deg)`,
+      transform: `translate(${size * 1.25}px, ${size * 2.4}px) rotate(-20deg)`,
       fontSize: `${size}px`,
       fontWeight: 'bold',
       zIndex: zIndex,
@@ -72,11 +72,12 @@ class TimeWidget extends Component<TimeWidgetProps, TimeWidgetState> {
   }
 
   componentDidMount() {
-    this.interval = setInterval(this.tick.bind(this), 500)
+    this.interval = window.setInterval(this.tick.bind(this), 500);
   }
 
   componentWillUnmpount() {
-    clearInterval(this.interval)
+    if (this.interval)
+      clearInterval(this.interval)
   }
 }
 
