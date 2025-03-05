@@ -26,7 +26,7 @@
     "@types/node": "^22.13.9",
     "@types/react": "^17.0.43",
     "@types/react-dom": "^18.3.0",
-    "eslint": "^8",
+    "eslint": "^9",
     "eslint-config-next": "15.2.1",
     "firebase-tools": "^13.32.0",
     "typescript": "^5.8.2"
