@@ -9,7 +9,7 @@ jobs:
     name: reviewdog / yamllint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: eclint
         uses: reviewdog/action-yamllint@v1
         with:
